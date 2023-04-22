@@ -1,0 +1,419 @@
+<section class="back-ground">
+  <div class="container py-5 h-100">
+    <div
+      class="row justify-content-center align-items-center h-100 m-0"
+      [ngSwitch]="allowLogin"
+    >
+      <div class="col col-xl-10 col-xxl-8">
+        <!-- login starts here -->
+        <div class="card" *ngSwitchCase="true">
+          <div class="row px-0 bg-white" style="border-radius: 1rem">
+            <div
+              class="col-md-6 col-lg-5 d-none d-md-block"
+              id="delivery"
+            ></div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center px-0">
+              <div
+                class="card-body p-md-4 p-5 p-lg-5"
+                style="border-radius: 1rem"
+              >
+                <form
+                  #refLogin="ngForm"
+                  (ngSubmit)="refLogin.form.valid && login(refLogin)"
+                >
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i
+                      class="fas fa-cubes fa-2x me-3"
+                      style="color: #ff6219"
+                    ></i>
+                    <span class="h1 fw-bold mb-0" style="color: rgb(79 120 0)"
+                      >Vegge!</span
+                    >
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                    Sign into your account
+                  </h5>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example17"
+                      >Email address / User_Name</label
+                    >
+                    <input
+                      type="email"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                      name="email"
+                      required
+                      ngModel
+                      #refUsername="ngModel"
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refLogin.submitted || refUsername.touched) && refUsername.errors?.['required']"
+                    >
+                      Username/email is required
+                    </p>
+                    <small id="emailHelp" class="form-text text-muted"
+                      >We'll never share your email with anyone else.</small
+                    >
+                  </div>
+
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="loginPassword"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      id="loginPassword"
+                      class="form-control form-control-lg"
+                      name="password"
+                      required
+                      ngModel
+                      #refPassword="ngModel"
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refLogin.submitted || refPassword.touched) && refPassword.errors?.['required']"
+                    >
+                      Password is required
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    class="button text-secondary mb-2"
+                    style="font-size: 14px; float: right"
+                    data-bs-toggle="modal"
+                    data-bs-target="#forgotPasswordModal"
+                  >
+                    Forgot Password
+                  </button>
+                  <div
+                    class="p-1 m-1"
+                    id="invalid"
+                    style="color: red; clear: right"
+                  ></div>
+                  <div class="pt-1 mb-3">
+                    <button
+                      class="btn btn-success btn-lg btn-block w-100"
+                      type="submit"
+                    >
+                      Login
+                    </button>
+                  </div>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81">
+                    Don't have an account?
+                    <button class="button ms-2" (click)="openSignUp()">
+                      Register Here
+                    </button>
+                  </p>
+                  <a href="#!" class="small text-muted">Terms of use.</a> &nbsp;
+                  <a href="#!" class="small text-muted">Privacy policy</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- signup starts here -->
+        <div
+          class="card"
+          style="border-radius: 1rem; margin-bottom: 100px"
+          *ngSwitchCase="false"
+        >
+          <form
+            #refSignUp="ngForm"
+            [formGroup]="signUpForm"
+            (ngSubmit)="signUpForm.valid && signUp()"
+          >
+            <div class="row g-0">
+              <div class="col-12 col-md-6 align-items-center">
+                <div class="card-body pb-0 pb-md-5 text-black">
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i
+                      class="fas fa-cubes fa-2x me-3"
+                      style="color: #ff6219"
+                    ></i>
+                    <span class="h1 fw-bold mb-0" style="color: rgb(79 120 0)"
+                      >Vegge!</span
+                    >
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                    Sign-Up to your account
+                  </h5>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="Rfname">First Name</label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      class="form-control form-control-lg"
+                      formControlName="firstName"
+                      required
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || firstName?.touched) && firstName?.errors?.['required']"
+                    >
+                      This field is required
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="lastName">Last Name</label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      class="form-control form-control-lg"
+                      formControlName="lastName"
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || lastName?.touched) && lastName?.errors?.['required']"
+                    >
+                      This field is required
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="contactNumber"
+                      >Contact-Number
+                    </label>
+                    <input
+                      type="number"
+                      id="contactNumber"
+                      name="contactNumber"
+                      class="form-control form-control-lg"
+                      formControlName="contactNumber"
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || contactNumber?.touched) && contactNumber?.errors?.['required']"
+                    >
+                      This field is required
+                    </p>
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || contactNumber?.touched) && (contactNumber?.errors?.['min'] || contactNumber?.errors?.['max'])"
+                    >
+                      Contact number must be 10 digit number
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="email">Email address</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-control form-control-lg"
+                      formControlName="email"
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || email?.touched) && email?.errors?.['required']"
+                    >
+                      This field is required
+                    </p>
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || email?.touched) && email?.errors?.['email']"
+                    >
+                      Enter a valid Email address
+                    </p>
+                    <small id="emailHelp" class="form-text text-muted">
+                      We'll never share your email with anyone else.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 align-items-center">
+                <div class="card-body pb-0 pt-0 pt-md-5 text-black">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="signUpPassword"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      id="signUpPassword"
+                      name="signUpPassword"
+                      class="form-control form-control-lg"
+                      formControlName="password"
+                    />
+                    {{signUpForm.errors?.['password']}}
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || password?.touched) && password?.errors?.['required']"
+                    >
+                      This field is required
+                    </p>
+                    <div
+                      class="error"
+                      *ngIf="(refSignUp.submitted || password?.touched) && password?.errors?.['pattern']"
+                    >
+                      Password must contain
+                      <ul>
+                        <li>atleast 8 characters</li>
+                        <li>atleast one number</li>
+                        <li>atleast one uppercase and lowercase letter</li>
+                        <li>atleast one special character (@,$,!,%,*,?,&)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="confirmPassword"
+                      >Confirm Password</label
+                    >
+
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      class="form-control form-control-lg"
+                      formControlName="confirmPassword"
+                    />
+                    <p
+                      class="error"
+                      *ngIf="(refSignUp.submitted || confirmPassword?.touched) && signUpForm.errors?.['confirmPasswordCheck']"
+                    >
+                      Password and Confirm Password must be same
+                    </p>
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button
+                      type="submit"
+                      class="btn btn-success btn-lg btn-block"
+                    >
+                      Sign-Up
+                    </button>
+                  </div>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81">
+                    Already have an account?
+                    <button class="button ms-2" (click)="openLogin()">
+                      Sign-In here
+                    </button>
+                  </p>
+                  <hr />
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-center mb-3 p-3 mb-5"
+                >
+                  <i class="fas fa-cubes fa-2x me-3"></i>
+                  <span
+                    class="h1 fw-bold mb-0 text-center"
+                    style="
+                      color: rgb(79 120 0);
+                      font-family: 'Great Vibes', cursive;
+                    "
+                    >Happy Shopping</span
+                  >
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="forgotPasswordModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="forgotPasswordModalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="text-center mt-2 mb-4">Generate a New Password</h5>
+        <form
+          #refForgotPassword="ngForm"
+          [formGroup]="forgotPasswordForm"
+          (ngSubmit)="forgotPasswordForm.valid && updatePassword()"
+        >
+          <div class="form-outline mb-4">
+            <label class="form-label" for="forgotEmail">Email</label>
+
+            <input
+              type="email"
+              name="email"
+              id="forgotEmail"
+              class="form-control form-control-lg"
+              formControlName="email"
+            />
+            <p
+              class="error"
+              *ngIf="(refForgotPassword.submitted || forgotPasswordForm.get('email')?.touched) && forgotPasswordForm.get('email')?.errors?.['required']"
+            >
+              Email is required
+            </p>
+
+            <p
+              class="error"
+              *ngIf="(refForgotPassword.submitted || forgotPasswordForm.get('email')?.touched) && forgotPasswordForm.get('email')?.errors?.['email']"
+            >
+              Enter a valid Email address
+            </p>
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="forgotPassword">New Password</label>
+
+            <input
+              type="password"
+              name="password"
+              id="forgotPassword"
+              class="form-control form-control-lg"
+              formControlName="password"
+            />
+            <p
+              class="error"
+              *ngIf="(refForgotPassword.submitted || forgotPasswordForm.get('password')?.touched) && forgotPasswordForm.get('password')?.errors?.['required']"
+            >
+              Password is required
+            </p>
+            <div
+              class="error"
+              *ngIf="(refForgotPassword.submitted || forgotPasswordForm.get('password')?.touched) && forgotPasswordForm.get('password')?.errors?.['pattern']"
+            >
+              Password must contain
+              <ul>
+                <li>atleast 8 characters</li>
+                <li>atleast one number</li>
+                <li>atleast one uppercase and lowercase letter</li>
+                <li>atleast one special character (@,$,!,%,*,?,&)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="confirmPassword"
+              >Confirm Password</label
+            >
+
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="form-control form-control-lg"
+              formControlName="confirmPassword"
+            />
+            <p
+              class="error"
+              *ngIf="(refForgotPassword.submitted || forgotPasswordForm.get('confirmPassword')?.touched) && forgotPasswordForm.errors?.['confirmPasswordCheck']"
+            >
+              Password and Confirm Password must be same
+            </p>
+          </div>
+          <button type="submti" class="btn btn-primary px-3 py-2">
+            Update
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

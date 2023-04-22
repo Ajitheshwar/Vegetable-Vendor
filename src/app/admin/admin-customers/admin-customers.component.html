@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Contact Number</th>
+          <th>Orders</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers; index as i">
+          <td>{{ (page - 1) * 10 + i + 1 }}</td>
+          <td>{{ customer.first_name }}</td>
+          <td>{{ customer.last_name }}</td>
+          <td>{{ customer.email_address }}</td>
+          <td>{{ customer.contact_number }}</td>
+          <td>{{ customer.orders.length }}</td>
+          <td>
+            <button type="button" class="btn" id="view">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                />
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center my-5">
+      <button
+        class="btn btn-outline-success rounded-pill px-3 py-1"
+        [disabled]="page == 1"
+        (click)="loadCustomersData(page - 1)"
+      >
+        Prev
+      </button>
+      <ul class="d-inline-block ps-0" id="pages">
+        <li *ngIf="page - 1 > 0" (click)="loadCustomersData(page - 1)">
+          {{ page - 1 }}
+        </li>
+        <li style="background-color: #82ae46; color: white">{{ page }}</li>
+        <li *ngIf="page + 1 <= maxPages" (click)="loadCustomersData(page + 1)">
+          {{ page + 1 }}
+        </li>
+      </ul>
+      <button
+        class="btn btn-outline-success rounded-pill px-3 py-1"
+        [disabled]="page == maxPages"
+        (click)="loadCustomersData(page + 1)"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>

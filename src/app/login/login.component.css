@@ -1,0 +1,47 @@
+.back-ground{
+    background-image: url('https://cdn.pixabay.com/photo/2016/02/27/18/07/clover-1225988_960_720.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center center;
+    overflow: auto;
+    height: 100%;
+}
+
+#delivery {
+    background-image: url("https://img.freepik.com/free-photo/delivery-man-phone-with-grocery-bag-hand_23-2148382451.jpg?w=1380&t=st=1678283301~exp=1678283901~hmac=3e971936c54b277e42eef3e07104eae3c39ef598c4d62846ac7112abe8a08514");
+    background-repeat: repeat-y;
+    background-size: cover;
+    border-radius: 1rem;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.card-body {
+    padding: 3rem;
+}
+
+.button{
+    outline: none;
+    background-color: transparent;
+    border : none;
+    color : #393f81;
+    padding : 0;
+    cursor: pointer;
+}
+
+.button:hover{
+    text-decoration: underline;
+}
+
+.error{
+    margin-top : 5px;
+    font-size: 14px;
+    color : red;
+}
+
+.error::before{
+    content: "* ";
+}

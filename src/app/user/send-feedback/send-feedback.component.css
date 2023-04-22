@@ -1,0 +1,46 @@
+#chatHeight{
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.message-position {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(209, 209, 209);
+    border-radius : 0 0 20px 20px;
+}
+
+.message {
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 75%;
+    margin: 5px 20px;
+    background-color: white;
+    text-align: left;
+}
+
+.message p {
+    margin-bottom: 0px;
+}
+
+.message .time {
+    font-size: 10px;
+    float: right;
+}
+
+.text-end .message {
+    background-color: rgb(169, 247, 169);
+}
+
+#messages {
+    padding-bottom: 60px;
+    height : 800px;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding-top: 30px;
+}

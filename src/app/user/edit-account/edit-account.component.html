@@ -1,0 +1,164 @@
+<body style="overflow: auto">
+    <h2 class="text-center p-3">Edit Account Details</h2>
+
+    <div class="p-3">
+        <div class="text-center border border-dark rounded-3 p-3 mb-4">
+            <div class="profile-image-box">
+                <img
+                    [src]="userDetails.image"
+                    class="profile-image"
+                    id="profile-image"
+                    alt=""
+                />
+                <button
+                    class="profile-button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal"
+                >
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873841/Vegetable-Vendor/camera_b2jyz7.png" alt="" />
+                </button>
+            </div>
+        </div>
+
+        <div
+            class="modal fade"
+            id="modal"
+            tabindex="-1"
+            aria-labelledby="modalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalLabel">
+                            Add Image
+                        </h1>
+                        <button
+                            id="close"
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <form (ngSubmit)="uploadImage($event)">
+                        <div class="modal-body">
+                            <div class="profile-image-box">
+                                <img src="" #previewImageContainer />
+                            </div>
+                            <label
+                                for="profileImage"
+                                class="profile-preview-label"
+                                (click)="profilePicInput.click()"
+                                >Upload Image</label
+                            >
+                            <input
+                                type="file"
+                                name="profileImage"
+                                id="profileImage"
+                                accept="image/*"
+                                #profilePicInput
+                                (change)="previewImageUser($event)"
+                            />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div #clock id="clock">
+                    <div class="clock-loader"></div>
+                </div>
+            </div>
+        </div>
+
+        <form #accountDetailsForm="ngForm" (ngSubmit)="accountDetailsForm.valid && submitForm(accountDetailsForm)">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="firstName" class="form-label">
+                        First Name
+                    </label>
+                    <input
+                        type="text"
+                        name="firstName"
+                        id="firstName"
+                        class="form-control"
+                        required
+                        ngModel
+                        #refFirstName = 'ngModel'
+                        [(ngModel)]="userDetails.first_name"
+                    />
+                    <p *ngIf="(accountDetailsForm.submitted) && refFirstName?.errors?.['required']" class="error">This field is required</p>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="lastName" class="form-label">
+                        Last Name
+                    </label>
+                    <input
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        class="form-control"
+                        #refLastName = 'ngModel'
+                        ngModel
+                        required
+                        [(ngModel)]="userDetails.last_name"
+                    />
+                    <p *ngIf="(accountDetailsForm.submitted) && refLastName?.errors?.['required']" class="error">This field is required</p>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="email" class="form-label"> Email </label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        class="form-control"
+                        #refEmail="ngModel"
+                        ngModel
+                        required
+                        pattern = "[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                        [(ngModel)]="userDetails.email_address"
+                    />
+                    
+                    <p *ngIf="(accountDetailsForm.submitted) && refEmail?.errors?.['required']" class="error">This field is required</p>
+                    <p *ngIf="(accountDetailsForm.submitted) && refEmail?.errors?.['pattern']" class="error">Enter a valid email address</p>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="phone" class="form-label">
+                        Phone Number</label
+                    >
+                    <br />
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            +91
+                        </span>
+                        <input
+                            type="text"
+                            name="phone"
+                            id="phone"
+                            class="form-control"
+                            ngModel
+                            #refContactNumber = 'ngModel'
+                            [(ngModel)]="userDetails.contact_number"
+                            required
+                            pattern="[0-9]{10}"
+                        />
+                    </div>
+                    
+                    <p *ngIf="(accountDetailsForm.submitted) && refContactNumber?.errors?.['required']" class="error">This field is required</p>
+                    <p *ngIf="(accountDetailsForm.submitted) && refContactNumber?.errors?.['pattern']" class="error">Phone Number must be 10 digits</p>
+                </div>
+                
+            </div>
+            <div class="text-end mb-5">
+                <button
+                    type="submit"
+                    class="btn btn-primary px-4 py-2 rounded-pill"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>

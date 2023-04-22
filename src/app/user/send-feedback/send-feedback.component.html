@@ -1,0 +1,37 @@
+<div>
+  <div id="messages">
+    <div
+      *ngFor="let message of messages"
+      [class]="message.sender !== 'admin' ? 'text-end' : ''"
+    >
+      <div class="message">
+        <p>{{ message.message }}</p>
+        <span class="time">{{
+          message.time | date : "h:mmaa dd/mm/yyyy"
+        }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="message-position">
+    <form #refMessage="ngForm" (ngSubmit)="sendMessage(refMessage)">
+      <div class="input-group my-2 mx-auto" style="width: 90%">
+        <input
+          id="message"
+          type="text"
+          class="form-control rounded-pill px-3 py-2"
+          placeholder="Send Message"
+          name="message"
+          ngModel
+        />
+        <div class="input-group-append">
+          <button
+            type="submit"
+            class="btn btn-success input-group-text ms-2 py-2 px-3 rounded-pill"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

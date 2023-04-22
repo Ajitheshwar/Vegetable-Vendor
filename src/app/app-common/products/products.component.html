@@ -1,0 +1,169 @@
+  <div class="wrap">
+    <div class="container mx-auto">
+      <div
+        class="row no-gutters align-items-center justify-content-center slider-text"
+      >
+        <div class="col-md-9 text-center px-0" style="z-index: 1">
+          <h1 class="slider-content">Products</h1>
+          <p>We serve best totalProducts</p>
+        </div>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </div>
+  
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="filterBody"
+    aria-labelledby="filterBodyLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="filterBodyLabel">Filters</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <form  #refFilter="ngForm" (ngSubmit)="applyFilters(refFilter)">
+        <div *ngFor="let category of categoriesAndSubCategories">
+          <div *ngIf="category.subCategories.length>0">
+              <h4 class="text-center mt-4 mb-3">{{ category.category }}</h4>
+              <div
+              class="form-check"
+              *ngFor="let subCategory of category.subCategories"
+              >
+              <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [name]="subCategory"
+                  [value]="subCategory"
+                  [id]="subCategory"
+                  ngModel
+  
+              />
+              <label class="form-check-label" [for]="subCategory">
+                  {{subCategory}}
+              </label>
+              </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary px-3 py-2 float-end">Apply</button>
+      </form>
+    </div>
+  </div>
+  <div class="p-3 mb-2 d-flex justify-content-between">
+    <button
+      class="btn btn-outline-success px-2 py-1"
+      style="height: 40px"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#filterBody"
+      aria-controls="filterBody"
+    >
+      Apply Filters
+    </button>
+    <div class="d-inline-block mx-3">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </span>
+        <input
+          type="text"
+          id="searchProductName"
+          class="form-control"
+          placeholder="Product Name"
+          (input)="searchProducts()"
+          [(ngModel)]="search"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row mx-3 mb-4 px-2">
+    <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+        <div class="d-sm-flex justify-content-between text-center py-3">
+            <button class="button" (click)="applyCategoryFilter('all')">All</button>
+            <button class="button" (click)="applyCategoryFilter('Vegetable')">Vegetables</button>
+            <button class="button" (click)="applyCategoryFilter('Fruit')">Fruits</button>
+            <button class="button" (click)="applyCategoryFilter('Dry Fruits')">Dry Fruits</button>
+        </div>
+    </div>
+    <div class="col-sm-1 col-md-2 col-lg-3"></div>
+</div>
+<div *ngIf="loadedProductsData">
+  <div class="container">
+    <div class="row mx-0">
+      <div *ngFor="let product of totalProducts, index as i  " class="col-12 col-md-6 col-lg-3 g-3">
+        <div class="product" [id]="i" data-bs-toggle="modal" data-bs-target="#Modal" (click)='modalContent(i)'>
+          <img [src]='product.image' class="img-fluid" alt="">
+          <div class="img-title">{{product.name}} <br> Rs.{{product.sellingPrice}}/- </div>  
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center my-5">
+    <button class="btn btn-outline-success rounded-pill px-3 py-1" [disabled]="page==1" (click)="loadProductsData(page-1)">Prev</button>
+    <ul class="d-inline-block ps-0" id="pages">
+      <li *ngIf="page-1>0" (click)="loadProductsData(page-1)">{{page-1}}</li>
+      <li style="background-color: #82ae46; color : white">{{page}}</li>
+      <li *ngIf="page+1<=maxPages" (click)="loadProductsData(page+1)">{{page+1}}</li>
+    </ul>
+    <button class="btn btn-outline-success rounded-pill px-3 py-1" [disabled]="page==maxPages" (click)="loadProductsData(page+1)">Next</button>
+  </div>
+  
+  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       
+        <div class="modal-body px-5 pt-5">
+            <img id='modalImage' [src]="totalProducts[productInModalIndex].image" alt="">
+            <h4 [attr.value]="totalProducts[productInModalIndex].name">{{totalProducts[productInModalIndex].name}}</h4>
+            <p>{{totalProducts[productInModalIndex].category}}</p>
+            <div [ngSwitch]="benefitsBoolean">
+                <div>{{totalProducts[productInModalIndex].description}}</div>
+                <div *ngIf="benefitsBoolean">
+                  <h6 class="mt-3"> Benefits</h6>
+                  <ul>
+                    <li *ngFor="let benefit of totalProducts[productInModalIndex].benefits">{{benefit}}</li>
+                  </ul>
+                </div>
+                <button *ngSwitchCase="false" id="rm" (click)="updateBenefitsBoolean()">...Read more</button>
+                <button *ngSwitchCase="true" id="rl" (click)="updateBenefitsBoolean()" >Read less</button>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div style="font-size : 14px; margin-top : 20px">Price</div>
+                    <div id="modalPrice"> Rs.{{totalProducts[productInModalIndex].sellingPrice}}/- </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div id="totalPrice">
+              Rs.{{totalProducts[productInModalIndex].sellingPrice*quantity}}/-
+            </div>
+            <div class="d-inline-block">
+                <button id="modalMinusButton" (click)="updateQuantity(-0.25)"> - </button>
+                <input type="number" id="modalInput" step="0.25" [value]="quantity" disabled> 
+                <button id="modalPlusButton" (click)="updateQuantity(0.25)"> + </button> 
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,249 @@
+<h4 class="text-center pt-3 pb-4">Order History</h4>
+
+<div *ngIf="fetchedOrderDetails" style="max-height: 800px; overflow: auto">
+  <div
+    *ngFor="let obj of orders; index as i"
+    class="orderBox"
+    (click)="updateModalOrderContent(i)"
+    data-bs-toggle="modal"
+    data-bs-target="#orderModal"
+  >
+    <span class="orderDate">
+      <span [class]="['orderState', obj.status]">{{ obj.status }}</span>
+      {{ obj.date | date }}
+    </span>
+    <div class="d-flex">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        class="bi bi-geo-alt-fill location d-none d-sm-block"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+        />
+      </svg>
+      <span class="address">
+        <h5>{{ obj.address.title }}</h5>
+        <div class="d-inline-block">
+          <b>House Number: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.houseNumber }},</div>
+        </div>
+        <div class="d-inline-block">
+          <b>Floor: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.floor }},</div>
+        </div>
+        <div class="d-inline-block">
+          <b>Street Number: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.streetNumber }},</div>
+        </div>
+        <div class="d-inline-block">
+          <b>Colony: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.colony }},</div>
+        </div>
+        <div class="d-inline-block">
+          <b>Area: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.area }},</div>
+        </div>
+        <div class="d-md-inline-block d-none">
+          <b>District: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.district }}</div>
+          <br />
+        </div>
+        <div class="d-md-inline-block d-none">
+          <b>Pincode: &nbsp;</b>
+          <div class="d-inline-block me-2">{{ obj.address.pincode }}</div>
+        </div>
+        <br />
+        <div class="d-inline-block">
+          <b>Landmark: &nbsp;</b>
+          <div class="d-inline-block">{{ obj.address.landmark }}</div>
+        </div>
+      </span>
+      <span class="text-center px-3 d-flex align-items-end">
+        &#8377;{{ obj.totalCost }}
+      </span>
+    </div>
+    <hr />
+    <div *ngFor="let product of obj.products" class="product row">
+      <div class="col-5 col-md-3">{{ product.name }}</div>
+      <div class="col-6">
+        x {{ product.quantity }} <span style="font-size: 8px">KG</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade w-100"
+    id="orderModal"
+    tabindex="-1"
+    aria-labelledby="orderModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" id="invoice1">
+      <div class="modal-content" id="">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="orderModalLabel">Order Summary</h1>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" id="">
+          <div
+            class="card shadow"
+            style="border-radius: 20px; padding: 10px"
+            id="orderSummary"
+          >
+            <div class="container" id="modelProductDetails">
+              <div *ngFor="let product of modalOrder.products" class="d-flex">
+                <img [src]="product.productId.image" alt="" class="order-img" />
+                <div class="w-100 d-flex justify-content-between">
+                  <div>
+                    <h4 id="modelProduct">{{ product.name }} <span style="font-size:14px">({{product.quantity}} <span style="font-size:12px">KG</span> )</span></h4>
+                    <div
+                      class="d-flex mb-3 align-items-center"
+                      style="font-size: 12px"
+                    >
+                      <div class="productQuantity">
+                        {{ product.quantity }}
+                      </div>
+                      <div class="ps-2 py-2 text-center">x</div>
+                      <div class="ps-2 py-2 text-center" id="modelCost">
+                        &#8377;{{ product.productId.sellingPrice }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-2" class="d-flex align-items-center">
+                    &#8377;{{
+                      product.productId.sellingPrice * product.quantity
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+            <div class="container" id="itemTotal">
+              <div class="d-flex">
+                <div>Item Total</div>
+
+                <div class="ms-auto p-2" id="total">
+                  &#8377;{{ modalOrder.totalCost - 40 }}
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="">Delivery Charges</div>
+
+                <div class="ms-auto p-2" id="itemDelivered">&#8377;40</div>
+              </div>
+              <hr />
+              <div class="d-flex">
+                <div class="">Grand Total</div>
+
+                <div class="ms-auto p-2" id="itemGrandTotal">
+                  &#8377;{{ modalOrder.totalCost }}
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+          <hr />
+
+          <div class="card shadow" style="border-radius: 20px; padding: 10px">
+            <div class="container">
+              <div class="d-flex">
+                <div class="pt-3">
+                  <h4>Order Details</h4>
+                </div>
+                <hr />
+              </div>
+              <hr />
+              <div class="row">
+                <p class="mb-1"><b>Order Token</b></p>
+                <p style="font-size: smaller" id="orderId">
+                  #{{ modalOrder._id }}
+                </p>
+              </div>
+              <div class="row">
+                <p class="mb-1"><b>Payment</b></p>
+                <p style="font-size: smaller" id="orderMethod">
+                  {{ modalOrder.modeOfPayment }}
+                </p>
+              </div>
+              <div class="row">
+                <p class="mb-1"><b>Date</b></p>
+                <p style="font-size: smaller" id="orderDate">
+                  {{ modalOrder.date | date }}
+                </p>
+              </div>
+              <div class="row">
+                <p class="mb-1"><b>Delivery to</b></p>
+                <p style="font-size: smaller" id="orderDestination">
+                  <span class="address">
+                    <h6 class="mb-1">{{ modalOrder.address.title }}</h6>
+                    <div class="d-inline-block">
+                      <b>House Number: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.houseNumber }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Floor: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.floor }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Street Number: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.streetNumber }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Colony: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.colony }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Area: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.area }},
+                      </div>
+                    </div>
+                    <div class="d-md-inline-block d-none">
+                      <b>District: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.district }}
+                      </div>
+                      <br />
+                    </div>
+                    <div class="d-md-inline-block d-none">
+                      <b>Pincode: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ modalOrder.address.pincode }}
+                      </div>
+                    </div>
+                    <br />
+                    <div class="d-inline-block">
+                      <b>Landmark: &nbsp;</b>
+                      <div class="d-inline-block">
+                        {{ modalOrder.address.landmark }}
+                      </div>
+                    </div>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,170 @@
+body {
+    overflow: visible;
+}
+
+::-webkit-scrollbar{
+    display: none;
+  }
+
+#form {
+    display: flex;
+    justify-content: center;
+}
+
+#addNewAddress {
+    display: none;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat, repeat;
+    background-position: right 1em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+}
+
+.floating-container {
+    position: relative;
+    margin-bottom: 1.5em;
+}
+
+.floating-container label {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    color: #8f8f8f;
+    font-size: 14px;
+}
+
+.floating-container input,
+select {
+    outline: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0px 0.75em;
+    background-color: white;
+}
+
+.floating-container input,
+label,
+select {
+    font-size: 1em;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+}
+
+.floating-container input:not(:placeholder-shown) + label,
+.floating-container input:focus + label,
+.floating-container
+    input:valid
+    + label
+    .floating-container
+    select:focus
+    + label,
+.floating-container select:valid + label {
+    color: #424242;
+    font-size: 0.8em;
+    height: 0;
+    top: -5px;
+    height: 0.75em;
+    left: 0.75em;
+    background-color: white;
+    padding: 0 0.75em;
+    pointer-events: none;
+    border-radius: 5px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.row {
+    padding: 0 0.75em;
+}
+.row > * {
+    padding: 0px;
+}
+
+#other-input {
+    border: none;
+    border-bottom: 2px solid green;
+    border-radius: 2px;
+    margin-bottom: 1em;
+}
+
+#other-input:focus {
+    outline: none;
+}
+
+.buttons label,
+.buttons input {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    display: inline-flex;
+    width: 20%;
+    height: 50px;
+    border: 1px solid #ccc;
+    padding: 0;
+    margin-right: 1%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttons input[type="radio"] {
+    display: none;
+}
+
+.buttons label:hover {
+    background: #ddd;
+}
+
+.buttons input[type="radio"]:checked + label {
+    background: rgb(25, 135, 84);
+    color: white;
+}
+
+#other-text {
+    display: none;
+    width: 80%;
+    border: none;
+    border-bottom: 2px solid rgb(25, 135, 84);
+}
+
+#other-text:focus {
+    outline: none;
+}
+#Other:checked ~ #other-text {
+    display: inline;
+}
+
+.display-address {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.display-address span {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#validation {
+    background-color: rgba(255, 0, 0, 0.226);
+    border: 1px solid rgba(255, 0, 0, 0.4);
+    padding: 5px 0;
+    color: rgb(255, 0, 0, 0.6);
+    font-size: 12px;
+    border-radius: 5px;
+}

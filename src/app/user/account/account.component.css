@@ -1,0 +1,87 @@
+
+.profile-background{
+    min-height: 250px;
+    background-position: center center;
+    background-size:contain;
+    background-repeat: no-repeat no-repeat;
+}
+
+.profile-text{
+    position: absolute;
+    bottom : 0;
+    right : 0;
+    left : 0;
+    padding : 10px 0;
+    background-color: black;
+    color : white;
+    border-radius: 0 0 10px 10px;
+}
+
+.account-box{
+    position: relative;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1); 
+    background-color: rgb(200, 200, 200);
+    cursor : pointer;
+}
+
+.display-button{
+    width: 100%;
+    margin : 10px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,.4);
+    background-color: #171f3b;
+}
+
+.display-button img{
+    width : 50%;
+    max-width: 100px;
+    transition: all 0.4s ease;
+    margin-top : 30px;
+    filter : invert(100%)
+}
+
+.display-button div{
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight : 700;
+    transition: all 0.6s ease;
+    color : #171f3d;
+    padding : 10px 0;
+    border-radius : 0 0 10px 10px;
+}
+
+.display-button:hover div{
+    color : white
+}
+
+.display-button:hover img{
+    transform: scale(1.1);
+}
+
+
+#displayPage{
+    position: relative;
+    top : -70px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 50px 0px rgba(0, 0, 0, 0.81);
+    padding : 0;
+}
+
+.profile-edit-img{
+    float: right;
+    margin-right: 10px;
+    height : 32px;
+    filter : invert(100%);
+    transition : all 0.6s ease;
+    padding : 5px;
+}
+
+.profile-edit-img:hover{
+    transform: scale(1.2);
+    padding : 5px;
+    border : 1px solid black;
+    border-radius : 50%;
+}

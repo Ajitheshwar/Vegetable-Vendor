@@ -1,0 +1,70 @@
+
+<div
+class="row mx-0 px-md-5 pt-md-5 px-3 pt-3"
+style="background-color: #171f35; padding-bottom: 180px"
+>
+<div
+    class="col-12 col-md-3 border border-gray rounded-3 py-4 text-center account-box profile-background"
+    id="profileImage"
+    #profileImage
+>
+    <div class="profile-text">
+        <span id="name">{{name}}</span>
+        <img
+            src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873858/Vegetable-Vendor/user_dxqdpa.png"
+            class="profile-edit-img"
+            alt=""
+            routerLink="editDetails"
+        />
+    </div>
+</div>
+<div class="col-12 col-md-9">
+    <div class="row h-100">
+        <div
+            class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center align-items-center"
+        >
+            <div
+                class="display-button"
+                routerLink="orders"
+            >
+                <img
+                    src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873842/Vegetable-Vendor/cargo_gh7vrq.png"
+                    alt=""
+                />
+                <div>Your Orders</div>
+            </div>
+        </div>
+        <div
+            class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center align-items-center"
+        >
+            <div
+                class="display-button"
+                routerLink="address"
+            >
+                <img
+                    src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873839/Vegetable-Vendor/address-book_qqitw5.png"
+                    alt=""
+                />
+                <div>Address Book</div>
+            </div>
+        </div>
+        <div
+            class="col-12 col-lg-4 d-flex justify-content-center align-items-center"
+        >
+            <div
+                class="display-button"
+                routerLink="feedback"           >
+                <img
+                    src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873846/Vegetable-Vendor/decision_chz7v8.png"
+                    alt=""
+                />
+                <div>Send Feedback</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container" id="displayPage">
+    <router-outlet></router-outlet>
+</div>

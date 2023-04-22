@@ -1,0 +1,60 @@
+
+.button{
+    color : #198754;
+    background-color: transparent;
+    border : none;
+    padding : 6px 18px;
+    border-radius : 6px;
+    transition : background-color 0.2s ease-in-out, text 0.2s ease-in-out
+}
+
+.button:hover{
+    background-color: #198754;
+    color : white;
+}
+
+.edit-button{
+    width : 16px;
+    height : 16px;
+    color :#198754;
+    cursor : pointer
+}
+
+.notification-count{
+    position: absolute;
+    font-size : 12px;
+    top : -12px;
+    right : -12px;
+    color : white;
+    aspect-ratio: 1;
+    height : 25px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.btn-outline-info:hover{
+    color : white;
+}
+
+.btn-outline-info:hover svg{
+    animation : ring 1s
+}
+
+@keyframes ring {
+    0%{
+        transform : rotateZ(0deg);
+    }
+    30%{
+        transform : rotateZ(40deg);
+    }
+    70%{
+        transform : rotateZ(-40deg);
+    }
+    100%{
+        transform : rotateZ(0deg);
+    }
+}

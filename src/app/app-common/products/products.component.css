@@ -1,0 +1,210 @@
+.wrap{
+    width : 100%;
+    position: relative;
+    background-image: url('https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873842/Vegetable-Vendor/bg_1_j27j0j.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding : 10em 0;
+}
+
+
+
+.overlay{
+    position : absolute;
+    top : 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    background-color: black;
+    opacity: .1;
+}
+.container .slider-text{
+    position: relative;
+    color : white;  
+}
+
+.slider-content{
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.form-control{
+    max-width : 300px;
+    min-width : 100px;
+}
+
+.button{
+    color : #198754;
+    background-color: transparent;
+    border : none;
+    padding : 6px 18px;
+    border-radius : 10px;
+    transition : background-color 0.2s ease-in-out, text 0.2s ease-in-out
+}
+
+.button:hover{
+    background-color: rgb(30, 104, 30);
+    color : white;
+}
+
+.product{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border : 1px solid rgba(0, 0, 0, 0.15);
+    height : 100%;
+    border-radius : 5px;
+    padding : 20px;
+    cursor : pointer;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product:hover{
+    box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.1) ;
+}
+
+img{
+    aspect-ratio: 6/5;
+    vertical-align: middle;
+    border : none;
+    transition : all 0.3s ease;
+    margin-bottom : 12px;
+}
+
+img:hover{
+    transform: scale(1.05);
+}
+
+.img-title{
+    text-transform: uppercase;
+    margin : auto 0;
+}
+
+#pages li{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    min-width : 40px;
+    width: fit-content;
+    font-weight: 400 ;
+    border-radius: 20px;
+    border : 1px solid rgba(0, 0, 0, 0.2);
+    margin : 10px 3px;
+    cursor : pointer;
+}
+
+#pages li:hover{
+    border : 1px solid white ;
+    background-color: #82ae46;
+    color : white
+}
+
+.btn{
+    font-size: 12px;
+    height : 40px;
+}
+
+#modalTitle, #modalSubTitle{
+    display: block;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#modalImage{
+    width: 80%;
+    margin : 0 10%;
+    border : 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.modal-body button{ 
+    border : none;
+    background-color: transparent;
+    color : blue;
+}
+
+#modalPrice{
+    margin-bottom : 20px;
+    font-size: 20px;
+}
+
+#modalInput, #modalPlusButton, #modalMinusButton{
+    border : none;
+    width : 40px;
+    height : 40px;
+    text-align: center;
+
+}
+
+#modalInput:focus{
+    outline : none;
+    border-top : 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom : 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#modalPlusButton{
+    border-radius: 0 5px 5px 0;
+}
+
+#modalMinusButton{
+    border-radius: 5px 0 0 5px;
+}
+
+#modalDescription{
+    text-align: justify;
+}
+
+input:disabled{
+    background-color: white;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.review{
+    border : 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+.review p{
+    padding : 5px 15px;
+    font-size  : 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 0;
+}
+.modal-footer{
+    justify-content: space-between;
+}
+.review div{
+    padding : 10px 15px;
+    font-size: 12px;
+}
+
+#totalPrice{
+    padding-left: 2rem;
+}
+
+
+#filter-form{
+    position: relative;
+    height: 95%;
+}
+
+#filter-form button{
+    position: absolute;
+    bottom : 10px;
+    right : 10px;
+}

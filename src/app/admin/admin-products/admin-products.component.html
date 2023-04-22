@@ -1,0 +1,417 @@
+<div class="d-flex justify-content-between">
+  <button class="m-3 btn btn-outline-success py-1" (click)="toggleFilters()">
+    <span [ngSwitch]="allowFilters">
+      <span *ngSwitchCase="true">Hide</span>
+      <span *ngSwitchCase="false">Apply</span>
+    </span>
+    Filters
+  </button>
+  <button
+    class="btn btn-success my-3"
+    data-bs-toggle="modal"
+    data-bs-target="#produtsOrderModal"
+  >
+    Order Products
+  </button>
+  <button
+    class="btn btn-outline-info m-3 position-relative"
+    data-bs-toggle="modal"
+    data-bs-target="#notificationModal"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-bell-fill"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"
+      />
+    </svg>
+    <span class="notification-count">{{ notifications.length }}</span>
+  </button>
+</div>
+<div *ngIf="allowFilters" class="mx-3 p-3 border border-dark rounded-3">
+  <form #filterForm="ngForm" (ngSubmit)="applyFilters(filterForm)">
+    <div class="row mx-0">
+      <ng-template
+        ngFor
+        let-category
+        [ngForOf]="categoriesAndSubCategories$ | async"
+      >
+        <ng-container *ngIf="category.subCategories.length > 0">
+          <div class="col-12 col-sm-6 mb-3">
+            <h4 class="text-center">{{ category.category }}</h4>
+            <hr />
+            <div class="row mx-0">
+              <div
+                class="col-12 col-lg-6"
+                *ngFor="let subCategory of category.subCategories"
+              >
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    [name]="subCategory"
+                    [value]="subCategory"
+                    [id]="subCategory"
+                    ngModel
+                  />
+                  <label [for]="subCategory" class="form-check-label">{{
+                    subCategory
+                  }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-template>
+    </div>
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary px-3 py-2 me-3">
+        Apply
+      </button>
+    </div>
+  </form>
+</div>
+<div class="row mx-3 px-2">
+  <div class="col-sm-1 col-md-2 col-lg-3"></div>
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+    <div class="d-sm-flex justify-content-between text-center py-3">
+      <button class="button" (click)="applyCategoryFilter('all')">All</button>
+      <button class="button" (click)="applyCategoryFilter('Vegetable')">
+        Vegetables
+      </button>
+      <button class="button" (click)="applyCategoryFilter('Fruit')">
+        Fruits
+      </button>
+      <button class="button" (click)="applyCategoryFilter('Dry Fruits')">
+        Dry Fruits
+      </button>
+    </div>
+  </div>
+  <div class="col-sm-1 col-md-2 col-lg-3"></div>
+</div>
+<div class="d-flex justify-content-between">
+  <button class="btn btn-primary mx-3">Add Product</button>
+  <button
+    class="btn btn-primary me-3"
+    (click)="showAndHideMoreData()"
+    [ngSwitch]="showMoreData"
+  >
+    <span *ngSwitchCase="true">Show Less</span>
+    <span *ngSwitchCase="false">Show More</span>
+  </button>
+</div>
+<div class="table-responsive p-3">
+  <form #productUpdate="ngForm">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="text-center">
+        <tr>
+          <th>#</th>
+          <th>IMAGE</th>
+          <th>PRODUCT NAME</th>
+          <th>COST PRICE</th>
+          <th>SELLING PRICE</th>
+          <th>QUANTITY</th>
+          <th *ngIf="showMoreData">DESCRIPTION</th>
+          <th *ngIf="showMoreData">BENEFITS</th>
+          <th>CATEGORY</th>
+          <th>SUB-CATEGORY</th>
+          <th colspan="2">EDIT</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="loadedProducts">
+        <tr *ngFor="let product of products; index as i">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <img [src]="product.image" style="width: 50px; height: 50px" />
+          </td>
+          <td *ngIf="editProductIndex !== i">{{ product.name }}</td>
+          <td *ngIf="editProductIndex === i">
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              [ngModel]="product.name"
+            />
+          </td>
+          <td class="text-center">&#8377;{{ product.costPrice }}</td>
+          <td class="text-center">&#8377;{{ product.sellingPrice }}</td>
+          <td class="text-center">
+            {{ calculateQuantity(product.stockFromPastDays) }}
+            <span style="font-size: 12px">KG</span>
+          </td>
+          <ng-container *ngIf="editProductIndex !== i">
+            <td *ngIf="showMoreData" style="min-width: 250px">
+              {{ product.description }}
+            </td>
+            <td *ngIf="showMoreData" style="min-width: 200px">
+              <ul>
+                <li *ngFor="let benefit of product.benefits">{{ benefit }}</li>
+              </ul>
+            </td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.subCategory }}</td>
+
+            <td class="text-center" colspan="2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                (click)="editProducts(i)"
+                fill="currentColor"
+                class="bi bi-pencil-square edit-button"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                />
+              </svg>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="editProductIndex === i">
+            <td *ngIf="showMoreData">
+              <textarea
+                type="text"
+                class="form-control"
+                name="description"
+                rows="5"
+                [ngModel]="product.description"
+              ></textarea>
+            </td>
+            <td *ngIf="showMoreData">
+              <textarea
+                type="text"
+                class="form-control"
+                name="benefits"
+                placeholder="Enter benefits using :: as separator"
+                rows="5"
+                [ngModel]="product.benefits.join('::')"
+              >
+              </textarea>
+            </td>
+            <td>
+              <input
+                type="text"
+                name="category"
+                [ngModel]="product.category"
+                class="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="subCategory"
+                [ngModel]="product.subCategory"
+                class="form-control"
+              />
+            </td>
+            <td>
+              <button
+                class="btn btn-success py-1 px-1"
+                (click)="updateProduct(productUpdate)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-check2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-danger py-1 px-1"
+                (click)="editProductIndex = -1"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  class="bi bi-x-lg"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+                  />
+                </svg>
+              </button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+
+<!-- Notification Modal -->
+<div
+  class="modal fade"
+  id="notificationModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="notificationModalLabel">
+          Notifications
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div
+          *ngFor="let notification of notifications"
+          class="p-3 m-2 border border-dark rounded-3 d-flex justify-content-between"
+        >
+          <div>
+            <h6 class="mb-1">{{ notification.name }}</h6>
+            <span style="font-size: 12px"
+              >{{ notification.category }} {{ notification.subCategory }}</span
+            >
+          </div>
+          <div class="d-flex align-items-center">
+            <span
+              >{{ notification.quantity }}
+              <span style="font-size: 12px">KG</span></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="produtsOrderModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="produtsOrderModalLabel">
+          Order Products
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search Product"
+            [(ngModel)]="search"
+          />
+        </div>
+        <form
+          [formGroup]="orderProducts"
+          (ngSubmit)="orderProducts.valid && updateOrderProductsInDB()"
+        >
+          <div formArrayName="products">
+            <div
+              *ngFor="let product of totalProducts; index as i"
+              class="row"
+              [formGroupName]="i"
+            >
+              <ng-container *ngIf="product.name.includes(search)">
+                <div class="col-12 col-lg-3 mb-3 d-flex align-items-end">
+                  <label for="product{{ product.name }}" class="form-label">
+                    {{ product.name }}
+                  </label>
+                </div>
+                <div class="col-4 col-lg-3 mb-3">
+                  <div class="input-group">
+                    <div class="form-floating">
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="quantity"
+                      />
+                      <label> Quantity </label>
+                    </div>
+                    <span class="input-group-text">KG</span>
+                  </div>
+                </div>
+                <div class="col-4 col-lg-3 mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text">&#8377;</span>
+                    <div class="form-floating">
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="costPrice"
+                      />
+                      <label>Cost Price</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4 col-lg-3 mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text">&#8377;</span>
+                    <div class="form-floating">
+                      <input
+                        type="number"
+                        class="form-control"
+                        formControlName="sellingPrice"
+                      />
+                      <label>Selling Price</label>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-12 text-danger text-center mb-3"
+                  *ngIf="getProductAtIndex(i).invalid"
+                >
+                  All values of {{ product.name }} are required
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary rounded-2 float-end">
+            Update
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

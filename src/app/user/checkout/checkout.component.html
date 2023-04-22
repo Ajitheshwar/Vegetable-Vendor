@@ -1,0 +1,230 @@
+
+<section class="cart-heading-bg">
+    <div style="width : 80%">
+        <h1 class="cart-heading"> Checkout </h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="icons">
+                <a (click)="router.navigateByUrl('/user/products')">
+                    <img src='https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873851/Vegetable-Vendor/notepad_kgar3a.png'>
+                </a>
+            </span>
+            <span class="icons"> 
+                <a (click)="router.navigateByUrl('/user/cart')">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873857/Vegetable-Vendor/trolley-cart_vuu6ot.png" alt="">
+                </a> 
+            </span>
+            <span class="icons icon-active">
+                <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873844/Vegetable-Vendor/credit-card_gkajuf.png" alt="">
+            </span>
+        </div>
+        <div class="progress"></div>
+        <div class="d-flex justify-content-between align-items-center me-4">
+            <span class="icon-heading">Shop</span>
+            <span class="icon-heading">Review</span>
+            <span class="icon-heading">Checkout</span>
+        </div>
+    </div>
+</section>
+
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-12 col-lg-6 container-box bg-white border-shadow mb-5 mb-lg-3 pt-3" style="border-radius: 20px;">
+            <h1 class="billing-heading text-warning">Billing Details</h1>
+            <div class="d-flex justify-content-around p-3" id="addNewAddressBtn">
+                <button class="btn btn-primary px-4 py-2" (click)="displayForm()"> Add Address</button>
+            </div>
+        
+            <div class="container">
+                <div *ngIf="displayAddressForm" class="mb-4">
+                    <h2 class="text-center my-4">Add New Address</h2>
+                
+                    <form #refAddAddress="ngForm" (ngSubmit)="refAddAddress.valid && addAddress(refAddAddress)" id="form">
+                        <div style="max-width: 500px; margin: 0 2rem">
+                          <div class="text-center mb-3 buttons">
+                            <input type="radio" id="Home" name="title" value="Home"  ngModel required/>
+                            <label for="Home" id="Home">Home</label>
+                            <input type="radio" id="Work" name="title" value="Work"  ngModel/>
+                            <label for="Work" id="Work">Work</label>
+                            <input type="radio" id="Hotel" name="title" value="Hotel"  ngModel/>
+                            <label for="Hotel" id="Hotel">Hotel</label>
+                            <input type="radio" id="Other" name="title" value="Other"  ngModel/>
+                            <label for="Other" id="Other">Other</label>
+                            <input type="text" id="other-text" name="other" ngModel="Other"/>
+                            <div id="validation" style="display: none">
+                              Select one of the options
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-sm-7 floating-container">
+                              <input type="text" id="houseNumber" name="houseNumber" required placeholder=" "  ngModel/>
+                              <label for="houseNumber">House number*</label>
+                            </div>
+                            <div class="col-sm 1"></div>
+                            <div class="col-12 col-sm-4 floating-container">
+                              <input type="number" id="floor" name="floor" required placeholder=" " min="0"  ngModel/>
+                              <label for="floor">Floor*</label>
+                            </div>
+                          </div>
+                          <div class="floating-container">
+                            <input type="text" id="landmark" name="landmark" placeholder=" "  ngModel/>
+                            <label for="landmark">Landmark</label>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-sm-4 floating-container">
+                              <input type="number" id="streetNumber" name="streetNumber" required placeholder=" " min="0"  ngModel/>
+                              <label for="streetNumber">Street number*</label>
+                            </div>
+                            <div class="col-sm 1"></div>
+                            <div class="col-12 col-sm-7 floating-container">
+                              <input type="text" id="colony" name="colony" required placeholder=" "  ngModel/>
+                              <label for="colony">Colony*</label>
+                            </div>
+                          </div>
+                          <div class="floating-container">
+                            <input type="text" id="area" name="area" required placeholder=" "  ngModel/>
+                            <label for="area">Area*</label>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 floating-container">
+                              <input name="district" id="district" value="Hyderabad" disabled  ngModel="Hyderabad"/>
+                              <label for="streetNumber">District*</label>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-12 col-sm-5 col-md-5 floating-container">
+                              <input type="text" id="pincode" name="pincode" required placeholder=" " pattern="[0-9]{6}"  ngModel/>
+                              <label for="pincode">Pincode*</label>
+                            </div>
+                          </div>
+                          <button
+                            type="submit"
+                            class="btn btn-info px-4 py-2 rounded-3 float-end"
+                          >
+                            Add
+                          </button>
+                          <div *ngIf="refAddAddress.submitted && refAddAddress.invalid" style="color:red" class="mb-3"> *All fields are required</div>
+                        </div>
+                      </form>
+                </div>
+        
+                <div *ngIf="getSavedAddresses" class="px-3 mb-3">
+                    <div *ngFor="let address of addresses;index as i" class="display-address" [id]="(index===i?'bg-selected-address':'')" (click)="index=i">
+                        <h6 class="ms-1">{{address.title}}</h6>
+                        <p>
+                            <span>Houes Number: {{address.houseNumber}},</span>
+                            <span>Floor: {{address.floor}}</span>
+                            <span>Street Number: {{address.streetNumber}},</span>
+                            <span>{{address.colony}},</span>
+                            <span>{{address.area}},</span>
+                            <span>{{address.district}}-</span>
+                            <span>{{address.pincode}}</span> <br>
+                            <span class="nt-2"><b>Landmark:</b> {{address.landmark}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-12 col-lg-5 container-box bg-white border-shadow mb-5 mb-lg-3 pt-3 pb-4" style="border-radius: 20px;height : fit-content">
+            <h1 class="billing-heading text-primary">Your Order</h1>
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th class="w-75">PRODUCT</th>
+                        <th>SUBTOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of cart">
+                        <td>{{product.name}} <span>{{product.quantity}}Kg</span> </td>
+                        <td>&#8377;{{product.productId.sellingPrice * product.quantity}}</td>
+                    </tr>
+                    <tr>
+                        <th>Delivery Charges</th>
+                        <td>&#8377;40</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form #paymentForm="ngForm" (ngSubmit)="paymentForm.valid && placeOrder(paymentForm)">
+                <h1 class="billing-heading text-primary">Payment</h1>
+                <div style=" padding: 20px 0 0 30px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentType" id="cod" value="COD" checked ngModel required>
+                    <label class="form-check-label" for="cod">
+                      COD
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentType" id="Net Banking" value="Net Banking" ngModel>
+                    <label class="form-check-label" for="Net Banking">
+                      NET BANKING
+                    </label>
+                  </div>
+                </div>
+                <p class="text-danger ps-5" *ngIf="paymentForm.submitted && paymentForm.invalid">*Choose Payment Option</p>
+                <div class="px-3">
+                    ORDER NOTES (optional)
+                    <textarea name="orderNotes" id="orderNotes" class="form-control my-3" rows="3"></textarea>
+                    <button class="d-flex justify-content-between align-items-center btn btn-success p-3 w-100 text-start" type="submit">Place Order <span> <span>&#8377;{{totalCost}}</span> <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873858/Vegetable-Vendor/up-arrow_tedqjp.svg" class="place-order-arrow" alt=""></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div  style="background-color: #343854;">
+    <div class="container pt-5 text-white">
+        <div class="row text-center">
+            <div class="col-12 col-md-4">
+                <span class="footer-icon">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873850/Vegetable-Vendor/locked_es8ns3.png" alt="">
+                </span>
+                <span class="footer-heading"> Your Information Secure </span>
+                <span class="footer-text">
+                    Your Information will not be shared or disclosed to anyone.They are highly secure with Us.
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span class="footer-icon">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873856/Vegetable-Vendor/secure-payment_bvkdbo.png" alt="">
+                </span>
+                <span class="footer-heading"> Secure Checkout </span>
+                <span class="footer-text">
+                    Payments will be fast and highly secure and confidential.
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span class="footer-icon">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873854/Vegetable-Vendor/phone-call_pofcou.png" alt="">
+                </span>
+                <span class="footer-heading"> 24/7 Customer Support </span>
+                <span class="footer-text">
+                    Our team will be available 24/7. You can ask any queries at any time.
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="order-placed">
+    <div id="order-placed-card">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </svg>
+        <h2>
+            Order placed Successfully 
+        </h2>
+    </div>
+    <div id="loader">
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <div class="loader--dot"></div>
+        <h6 class="text-center" style="font-size: 16px; color: white; margin-top : 20px; padding : 10px 35px">
+            Your order being placed...
+        </h6>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+
+<section class="cart-heading-bg">
+    <div style="width : 80%">
+        <h1 class="cart-heading"> Cart </h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="icons">
+                <a (click)="router.navigateByUrl('/user/products')" style="cursor: pointer;">
+                    <img src='https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873851/Vegetable-Vendor/notepad_kgar3a.png'>
+                </a>
+            </span>
+            <span class="icons icon-active"> 
+                <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873857/Vegetable-Vendor/trolley-cart_vuu6ot.png" alt="">
+            </span>
+            <span class="icons" style="background-color: #343854;">
+                <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873844/Vegetable-Vendor/credit-card_gkajuf.png" alt="">
+            </span>
+        </div>
+        <div class="progress-active"></div>
+        <div class="progress"></div>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="icon-heading">Shop</span>
+            <span class="icon-heading">Review</span>
+            <span class="icon-heading" style="color : #343854">Checkout</span>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-12 bg-white border-shadow mb-5 mb-lg-3 container-box" style="border-radius : 20px">
+            <div class="row">
+                <div class="col-6 d-flex justify-content-center align-items-center" style="padding : 30px 0 10px 0">
+                    Product
+                </div>
+                <div class="col-3 d-flex justify-content-center align-items-center" style="padding : 30px 0 10px 0"> Quantity </div>
+                <div class="col-3 d-flex justify-content-center align-items-center" style="padding : 30px 0 10px 0"> Subtotal </div>
+            </div>
+            <hr>
+            <div id="cart-products">
+                <div class="row underline" *ngFor="let product of cart; index as i">
+                    <div class="col-sm-3 d-flex align-items-center d-none d-sm-block">
+                        <img [src]="product.productId.image" alt="" class="order-img">
+                    </div>
+                    <div class="col-4 col-sm-3 pe-0 text-center text-sm-start">
+                        <div class="product-title">{{product.name}}</div>
+                        <div class="product-subtitle">{{product.productId.subCategory}} {{product.productId.category}}</div>
+                        <div class="product-price">&#8377;{{product.productId.sellingPrice}}/-</div>
+                    </div>
+                    <div class="col-8 col-sm-6 quantity">
+                        <div class="d-flex flext-cloumn flex-sm-row">
+                            <button id="productMinusButton" (click)="updateQuantity(i,-0.25)">-</button>
+                            <input type="number" class="productInput" [value]="product.quantity">
+                            <button id="productPlusButton" (click)="updateQuantity(i,0.25)">+</button>
+                        </div>
+                        <span>&#8377;{{product.productId.sellingPrice * product.quantity}}/-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-9"></div>
+                <div class="col-12 col-md-3 px-3">
+                    <button class="btn btn-primary py-2 d-block w-100"><a (click)="router.navigateByUrl('/user/products')"> Add more</a></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-4 col-12 px-0 mb-3  container-box">
+            <div class=" bg-white border-shadow card-totals ms-lg-3"  style="border-radius : 20px;">
+                <h4 >Cart Totals<span id="subtotal">&#8377;{{totalCost}}/-</span></h4>
+                <hr>
+                <button class="btn btn-success d-block w-100 mt-4 py-2"><a (click)="router.navigateByUrl('/user/checkout')" class="w-100 d-block">PROCEED TO CHECKOUT</a></button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div  style="background-color: #343854;">
+    <div class="container pt-5 text-white">
+        <div class="row text-center">
+            <div class="col-12 col-md-4">
+                <span class="footer-icon">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873850/Vegetable-Vendor/locked_es8ns3.png" alt="">
+                </span>
+                <span class="footer-heading"> Your Information Secure </span>
+                <span class="footer-text">
+                    Your Information will not be shared or disclosed to anyone.They are highly secure with Us.
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span class="footer-icon">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873856/Vegetable-Vendor/secure-payment_bvkdbo.png" alt="">
+                </span>
+                <span class="footer-heading"> Secure Checkout </span>
+                <span class="footer-text">
+                    Payments will be fast and highly secure and confidential.
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span class="footer-icon">
+                    <img src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873854/Vegetable-Vendor/phone-call_pofcou.png" alt="">
+                </span>
+                <span class="footer-heading"> 24/7 Customer Support </span>
+                <span class="footer-text">
+                    Our team will be available 24/7. You can ask any queries at any time.
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

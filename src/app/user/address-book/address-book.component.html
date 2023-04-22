@@ -1,0 +1,101 @@
+<div class="text-end p-3" id="addNewAddressBtn">
+  <button class="btn btn-primary px-4 py-2" (click)="displayForm()">
+    Add Address
+  </button>
+</div>
+
+<div class="container">
+  <div *ngIf="displayAddAddress" class="mb-4">
+    <h2 class="text-center my-4">Add New Address</h2>
+
+    <form #refAddAddress="ngForm" (ngSubmit)="refAddAddress.valid && addAddress(refAddAddress)" id="form">
+      <div style="max-width: 500px; margin: 0 2rem">
+        <div class="text-center mb-3 buttons">
+          <input type="radio" id="Home" name="title" value="Home"  ngModel required/>
+          <label for="Home" id="Home">Home</label>
+          <input type="radio" id="Work" name="title" value="Work"  ngModel/>
+          <label for="Work" id="Work">Work</label>
+          <input type="radio" id="Hotel" name="title" value="Hotel"  ngModel/>
+          <label for="Hotel" id="Hotel">Hotel</label>
+          <input type="radio" id="Other" name="title" value="Other"  ngModel/>
+          <label for="Other" id="Other">Other</label>
+          <input type="text" id="other-text" name="other" ngModel [(ngModel)]="other" />
+          <div id="validation" style="display: none">
+            Select one of the options
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-7 floating-container">
+            <input type="text" id="houseNumber" name="houseNumber" required placeholder=" "  ngModel/>
+            <label for="houseNumber">House number*</label>
+          </div>
+          <div class="col-sm 1"></div>
+          <div class="col-12 col-sm-4 floating-container">
+            <input type="number" id="floor" name="floor" required placeholder=" " min="0"  ngModel/>
+            <label for="floor">Floor*</label>
+          </div>
+        </div>
+        <div class="floating-container">
+          <input type="text" id="landmark" name="landmark" placeholder=" "  ngModel/>
+          <label for="landmark">Landmark</label>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-4 floating-container">
+            <input type="number" id="streetNumber" name="streetNumber" required placeholder=" " min="0"  ngModel/>
+            <label for="streetNumber">Street number*</label>
+          </div>
+          <div class="col-sm 1"></div>
+          <div class="col-12 col-sm-7 floating-container">
+            <input type="text" id="colony" name="colony" required placeholder=" "  ngModel/>
+            <label for="colony">Colony*</label>
+          </div>
+        </div>
+        <div class="floating-container">
+          <input type="text" id="area" name="area" required placeholder=" "  ngModel/>
+          <label for="area">Area*</label>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 floating-container">
+            <input name="district" id="district" value="Hyderabad" disabled  ngModel="Hyderabad"/>
+            <label for="streetNumber">District*</label>
+          </div>
+          <div class="col-sm-1"></div>
+          <div class="col-12 col-sm-5 col-md-5 floating-container">
+            <input type="text" id="pincode" name="pincode" required placeholder=" " pattern="[0-9]{6}"  ngModel/>
+            <label for="pincode">Pincode*</label>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-info px-4 py-2 rounded-3 float-end"
+        >
+          Add
+        </button>
+        <div *ngIf="refAddAddress.submitted && refAddAddress.invalid" style="color:red" class="mb-3"> *All fields are required</div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="loadedAddresses" class="px-4 pb-4">
+    <div class='display-address' *ngFor="let address of addresses; index as i">
+        <h4 class="ms-2">{{address.title}} 
+          <button class="btn float-end" (click)="deleteAddress(address._id,i)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+            </svg>
+          </button>
+        </h4>
+        <p>
+            <span>Houes Number: {{address.houseNumber}},</span>
+            <span>Floor: {{address.floor}}</span>
+            <span>Street Number: {{address.streetNumber}},</span>
+            <span>{{address.colony}},</span>
+            <span>{{address.area}},</span>
+            <span>{{address.district}}-</span>
+            <span>{{address.pincode}}</span> <br>
+            <span class="nt-2"><b>Landmark:</b> {{address.landmark}}</span>
+        </p>
+    </div>
+</div>
