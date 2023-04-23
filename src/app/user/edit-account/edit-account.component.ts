@@ -20,7 +20,7 @@ export class EditAccountComponent implements OnInit{
     })
   }
 
-  @ViewChild('profilePicInput') profilePicInput : any
+  // @ViewChild('profilePicInput') profilePicInput : any
   @ViewChild('previewImageContainer') previewImageContainer : any
   @ViewChild('clock') clock : any
 
@@ -38,10 +38,6 @@ export class EditAccountComponent implements OnInit{
     this.data.updateUserDetailsInDB(this.userDetails)
   }
 
-  submitProfileUpload(ref : NgForm){
-
-  }
-
   previewImageUser(event : Event){
     let fileInput = (event.target as HTMLInputElement)
     if(fileInput.files && fileInput.files.length>0){
@@ -52,7 +48,7 @@ export class EditAccountComponent implements OnInit{
   }
 
   uploadImage(event :Event){
-    let files = this.profilePicInput.nativeElement.files
+    // let files = this.profilePicInput.nativeElement.files
     // console.log(event.target as HTMLFormElement) 
     this.clock.nativeElement.style.display = 'flex'
     if(event.target){

@@ -11,10 +11,11 @@ adminProductsRouter.get("/", admin.getAdminProducts)
 
 adminProductsRouter.put("/",admin.updateProduct)
 
-adminProductsRouter.post("/",admin.addAdminProduct)
+adminProductsRouter.post("/addProduct",admin.addAdminProduct)
+
+adminProductsRouter.put("/updateImage",admin.updateImage)
 
 adminProductsRouter.post("/todayInfo",admin.updateTodayDetails)
 
-adminProductsRouter.post("/imageUpload",admin.imageUpload);
 
 module.exports = adminProductsRouter;

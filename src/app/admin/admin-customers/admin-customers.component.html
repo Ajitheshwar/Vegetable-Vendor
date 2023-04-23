@@ -1,4 +1,23 @@
-<div class="container">
+<div class="row mb-3 p-3 mx-0">
+  <div class="col-12 col-md-6 ps-3 mb-3 mb-md-0">
+    <span class="pt-2">Search By</span>
+    <div class="d-inline-block">
+      <button class="btn btn-primary px-3 py-1 ms-3" (click)="searchBy='name'">Name</button>
+      <button class="btn btn-primary px-3 py-1 ms-3" (click)="searchBy='email'"> Email</button>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 d-flex py-sm-0">
+    <input type="text" class="form-control" name="search" placeholder="Enter {{searchBy}}" (input)="getCustomersBySearch()" [(ngModel)]="search">
+    <button class="btn btn-dark mx-3" (click)="reset()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="container p-3 border border-secondary rounded-3">
   <div class="table-responsive">
     <table class="table">
       <thead>
@@ -21,7 +40,7 @@
           <td>{{ customer.contact_number }}</td>
           <td>{{ customer.orders.length }}</td>
           <td>
-            <button type="button" class="btn" id="view">
+            <button type="button" class="btn" (click)="navigateToSinglePage(customer._id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -39,30 +58,30 @@
         </tr>
       </tbody>
     </table>
-    <div class="text-center my-5">
-      <button
-        class="btn btn-outline-success rounded-pill px-3 py-1"
-        [disabled]="page == 1"
-        (click)="loadCustomersData(page - 1)"
-      >
-        Prev
-      </button>
-      <ul class="d-inline-block ps-0" id="pages">
-        <li *ngIf="page - 1 > 0" (click)="loadCustomersData(page - 1)">
-          {{ page - 1 }}
-        </li>
-        <li style="background-color: #82ae46; color: white">{{ page }}</li>
-        <li *ngIf="page + 1 <= maxPages" (click)="loadCustomersData(page + 1)">
-          {{ page + 1 }}
-        </li>
-      </ul>
-      <button
-        class="btn btn-outline-success rounded-pill px-3 py-1"
-        [disabled]="page == maxPages"
-        (click)="loadCustomersData(page + 1)"
-      >
-        Next
-      </button>
-    </div>
   </div>
+</div>
+<div class="text-center mt-3">
+  <button
+    class="btn btn-outline-success rounded-pill px-3 py-1"
+    [disabled]="page == 1"
+    (click)="loadCustomersData(page - 1)"
+  >
+    Prev
+  </button>
+  <ul class="d-inline-block ps-0" id="pages">
+    <li *ngIf="page - 1 > 0" (click)="loadCustomersData(page - 1)">
+      {{ page - 1 }}
+    </li>
+    <li style="background-color: #82ae46; color: white">{{ page }}</li>
+    <li *ngIf="page + 1 <= maxPages" (click)="loadCustomersData(page + 1)">
+      {{ page + 1 }}
+    </li>
+  </ul>
+  <button
+    class="btn btn-outline-success rounded-pill px-3 py-1"
+    [disabled]="page == maxPages"
+    (click)="loadCustomersData(page + 1)"
+  >
+    Next
+  </button>
 </div>

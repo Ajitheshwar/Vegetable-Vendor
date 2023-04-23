@@ -36,11 +36,7 @@
 <div *ngIf="allowFilters" class="mx-3 p-3 border border-dark rounded-3">
   <form #filterForm="ngForm" (ngSubmit)="applyFilters(filterForm)">
     <div class="row mx-0">
-      <ng-template
-        ngFor
-        let-category
-        [ngForOf]="categoriesAndSubCategories$ | async"
-      >
+      <ng-template ngFor let-category [ngForOf]="categoriesAndSubCategories">
         <ng-container *ngIf="category.subCategories.length > 0">
           <div class="col-12 col-sm-6 mb-3">
             <h4 class="text-center">{{ category.category }}</h4>
@@ -95,7 +91,13 @@
   <div class="col-sm-1 col-md-2 col-lg-3"></div>
 </div>
 <div class="d-flex justify-content-between">
-  <button class="btn btn-primary mx-3">Add Product</button>
+  <button
+    class="btn btn-primary mx-3"
+    data-bs-toggle="modal"
+    data-bs-target="#addProductModal"
+  >
+    Add Product
+  </button>
   <button
     class="btn btn-primary me-3"
     (click)="showAndHideMoreData()"
@@ -127,7 +129,20 @@
         <tr *ngFor="let product of products; index as i">
           <td>{{ i + 1 }}</td>
           <td>
-            <img [src]="product.image" style="width: 50px; height: 50px" />
+            <button
+              class="btn"
+              data-bs-toggle="modal"
+              data-bs-target="#updateImageModal"
+              (click)="
+                updateProductImageDetails(
+                  product.image,
+                  product.name,
+                  product._id
+                )
+              "
+            >
+              <img [src]="product.image" style="width: 50px; height: 50px" />
+            </button>
           </td>
           <td *ngIf="editProductIndex !== i">{{ product.name }}</td>
           <td *ngIf="editProductIndex === i">
@@ -261,7 +276,7 @@
   class="modal fade"
   id="notificationModal"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="notificationModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
@@ -304,7 +319,7 @@
   class="modal fade"
   id="produtsOrderModal"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="produtsOrderModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-lg">
@@ -411,6 +426,220 @@
             Update
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Add Product Modal-->
+<div
+  class="modal"
+  id="addProductModal"
+  aria-labelledby="addProductModalLabel"
+  tabindex="-1"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newProduct">
+          <div class="mb-3">
+            <label for="name" class="form-label">Product Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label"> Category </label>
+            <select
+              type="text"
+              name="category"
+              class="form-control"
+              formControlName="category"
+            >
+              <option value="Vegetable">Vegetable</option>
+              <option value="Fruit">Fruit</option>
+              <option value="Dry Fruits">Dry Fruits</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="subCategory" class="form-label"> Sub-Category </label>
+            <input
+              type="text"
+              name="subCategory"
+              class="form-control"
+              formControlName="subCategory"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="costPrice" class="form-label"> Cost Price </label>
+            <input
+              type="number"
+              name="costPrice"
+              class="form-control"
+              formControlName="costPrice"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="sellingPrice" class="form-label"> Selling Price </label>
+            <input
+              type="number"
+              class="form-control"
+              name="sellingPrice"
+              formControlName="sellingPrice"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="numberOfDays" class="form-label">
+              Expiry of Product
+            </label>
+            <p class="text-muted" style="font-size: 12px">
+              Select -1 for large expiry products
+            </p>
+            <input
+              type="number"
+              class="form-control"
+              name="numberOfDays"
+              formControlName="numberOfDays"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="3"
+              class="form-control"
+              formControlName="description"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="benefits" class="form-label w-100">
+              Benefits
+              <button class="btn btn-light float-end" (click)="addNewBenefit()">
+                + Benefit
+              </button>
+            </label>
+            <div formArrayName="benefits">
+              <div
+                *ngFor="let benefit of benefits.controls; let i = index"
+                class="d-flex"
+              >
+                <input
+                  type="text"
+                  class="form-control mb-3"
+                  [formControlName]="i"
+                />
+                <button
+                  class="btn btn-outline-danger ms-2 mb-3"
+                  (click)="deleteBenefit(i)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-trash3"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="profile-image-box">
+              <img src="" #previewImageContainer />
+            </div>
+            <label for="productImage" class="profile-preview-label" (click)="addProductImage.click()">
+              Upload Image
+            </label>
+            <input
+              type="file"
+              name="productImage"
+              class="productImage"
+              accept="image/*"
+              #addProductImage
+              (change)="previewImageUser($event)"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addProduct()">
+          Add Product
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Update Product Image-->
+<div
+  class="modal fade"
+  id="updateImageModal"
+  tabindex="-1"
+  aria-labelledby="updateImageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateImageModalLabel">
+          Update Product Image
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <span class="mx-3 d-inline-block pt-2">Product: </span>
+          <input
+            class="form-control"
+            [value]="productUpdateImage.get('name')?.value"
+            readonly
+          />
+        </div>
+        <form [formGroup]="productUpdateImage">
+          <div class="profile-image-box">
+            <img
+              [src]="productUpdateImage.get('image')?.value"
+              class="profile-image-box"
+            />
+          </div>
+          <label for="productImage" class="profile-preview-label" (click)="updateProductImageInput.click()">
+            Upload Image
+          </label>
+          <input
+            type="file"
+            name="productImage"
+            class="productImage"
+            accept="image/*"
+            #updateProductImageInput
+            (change)="updateProductImagePhoto($event)"
+          />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateProductImage()">Save changes</button>
       </div>
     </div>
   </div>

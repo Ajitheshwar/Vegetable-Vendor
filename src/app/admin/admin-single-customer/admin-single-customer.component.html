@@ -1,1 +1,414 @@
-<p>admin-single-customer works!</p>
+<div *ngIf="loadedCustomerDetails" class="pb-4">
+  <div class="main-content">
+    <div
+      class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+      style="min-height: 300px"
+    >
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+      <div class="row mx-0">
+        <div class="col-1"></div>
+        <div class="col-sm-10">
+          <div class="card bg-white shadow">
+            <div class="d-flex justify-content-center">
+              <div class="card-profile-image">
+                <a href="#">
+                  <img
+                    [src]="customerDetails.image"
+                    class="rounded-circle"
+                    id="customerImage"
+                  />
+                </a>
+              </div>
+            </div>
+            <div
+              class="card-header bg-white text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4"
+            ></div>
+            <div class="card-body">
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username">
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          id="input-username"
+                          class="form-control form-control-alternative"
+                          placeholder="Username"
+                          [value]="customerDetails.first_name"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          id="input-email"
+                          class="form-control form-control-alternative"
+                          [value]="customerDetails.last_name"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">
+                  Contact information
+                </h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label
+                          class="form-control-label"
+                          for="input-first-name"
+                        >
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="input-first-name"
+                          class="form-control form-control-alternative"
+                          [value]="customerDetails.email_address"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">
+                          Contact Number
+                        </label>
+                        <input
+                          type="text"
+                          id="input-last-name"
+                          class="form-control form-control-alternative"
+                          placeholder="Last name"
+                          [value]="customerDetails.contact_number"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <hr />
+  <br />
+  <div class="row ms-3 mx-0">
+    <div class="row">
+      <div class="col-lg-6 col-12 px-0 mb-lg-0 mb-3 pe-lg-3">
+        <div
+          class="bg-white shadow card-totals"
+          style="border-radius: 20px; border: 1px solid rgb(211, 208, 208)"
+        >
+          <div id="chat">
+            <h4
+              class="text-center py-3 bg-white"
+              style="border-radius: 20px 20px 0 0"
+            >
+              Chat
+            </h4>
+            <div id="messages">
+              <ng-container *ngIf="loadedChatMessages">
+                <div
+                  *ngFor="let message of chatMessages"
+                  [class]="message.sender === 'admin' ? 'text-end' : ''"
+                >
+                  <div class="message">
+                    <p>{{ message.message }}</p>
+                    <span class="time">{{
+                      message.time | date : "h:mmaa dd/mm/yyyy"
+                    }}</span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="message-position">
+              <form #refMessage="ngForm" (ngSubmit)="sendMessage(refMessage)">
+                <div class="d-flex my-2 mx-auto" style="width: 90%">
+                  <input
+                    id="message"
+                    type="text"
+                    class="form-control rounded-pill px-3 py-2"
+                    placeholder="Send Message"
+                    name="message"
+                    ngModel
+                  />
+                  <div class="d-flex align-items-center">
+                    <button
+                      type="submit"
+                      class="btn btn-success input-group-text ms-2 py-2 px-3 rounded-pill"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 shadow" style="border-radius: 20px">
+        <div class="table-responsive text-center">
+          <table class="table table-rounded">
+            <thead class="text-center" style="height: 60px">
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Time</th>
+                <th scope="col">Mode Of Payment</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Status</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr *ngFor="let order of customerDetails.orders; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ order.date | date : "medium" }}</td>
+                <td>{{ order.modeOfPayment }}</td>
+                <td>&#8377;{{ order.totalCost }}</td>
+                <td>{{ order.status }}</td>
+                <td>
+                  <button
+                    class="btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#orderModal"
+                    (click)="getOrderDetails(order._id)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-journal"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                      />
+                      <path
+                        d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="inv">
+    <div
+      class="modal fade w-100"
+      id="orderModal"
+      tabindex="-1"
+      aria-labelledby="orderModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" id="invoice1">
+        <div class="modal-content" id="">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="orderModal">Order Summary</h1>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" *ngIf="loadedOrderDetails">
+            <div
+              class="card shadow"
+              style="border-radius: 20px; padding: 10px"
+              id="orderSummary"
+            >
+              <div class="container">
+                <div
+                  *ngFor="let product of orderDetails.products"
+                  class="d-flex"
+                >
+                  <img
+                    [src]="product.productId.image"
+                    alt=""
+                    class="order-img"
+                  />
+                  <div class="w-100 d-flex justify-content-between">
+                    <div>
+                      <h4 id="modelProduct">
+                        {{ product.name }}
+                        <span style="font-size: 14px"
+                          >({{ product.quantity }}
+                          <span style="font-size: 12px">KG</span> )</span
+                        >
+                      </h4>
+                      <div
+                        class="d-flex mb-3 align-items-center"
+                        style="font-size: 12px"
+                      >
+                        <div class="productQuantity">
+                          {{ product.quantity }}
+                        </div>
+                        <div class="ps-2 py-2 text-center">x</div>
+                        <div class="ps-2 py-2 text-center" id="modelCost">
+                          &#8377;{{ product.productId.sellingPrice }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-2" class="d-flex align-items-center">
+                      &#8377;{{
+                        product.productId.sellingPrice * product.quantity
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+              <div class="container" id="itemTotal">
+                <div class="d-flex">
+                  <div>Item Total</div>
+
+                  <div class="ms-auto p-2" id="total">
+                    &#8377;{{ orderDetails.totalCost - 40 }}
+                  </div>
+                </div>
+
+                <div class="d-flex">
+                  <div class="">Delivery Charges</div>
+
+                  <div class="ms-auto p-2" id="itemDelivered">&#8377;40</div>
+                </div>
+                <hr />
+                <div class="d-flex">
+                  <div class="">Grand Total</div>
+
+                  <div class="ms-auto p-2" id="itemGrandTotal">
+                    &#8377;{{ orderDetails.totalCost }}
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+            <hr />
+
+            <div class="card shadow" style="border-radius: 20px; padding: 10px">
+              <div class="container">
+                <div class="d-flex">
+                  <div class="pt-3">
+                    <h4>Order Details</h4>
+                  </div>
+                  <hr />
+                </div>
+                <hr />
+                <div class="row">
+                  <p class="mb-1"><b>Order Token</b></p>
+                  <p style="font-size: smaller" id="orderId">
+                    #{{ orderDetails._id }}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="mb-1"><b>Payment</b></p>
+                  <p style="font-size: smaller" id="orderMethod">
+                    {{ orderDetails.modeOfPayment }}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="mb-1"><b>Date</b></p>
+                  <p style="font-size: smaller" id="orderDate">
+                    {{ orderDetails.date | date }}
+                  </p>
+                </div>
+                <div class="row">
+                  <p class="mb-1"><b>Delivery to</b></p>
+                  <p style="font-size: smaller" id="orderDestination">
+                    <span class="address">
+                      <h6 class="mb-1">{{ orderDetails.address.title }}</h6>
+                      <div class="d-inline-block">
+                        <b>House Number: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.houseNumber }},
+                        </div>
+                      </div>
+                      <div class="d-inline-block">
+                        <b>Floor: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.floor }},
+                        </div>
+                      </div>
+                      <div class="d-inline-block">
+                        <b>Street Number: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.streetNumber }},
+                        </div>
+                      </div>
+                      <div class="d-inline-block">
+                        <b>Colony: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.colony }},
+                        </div>
+                      </div>
+                      <div class="d-inline-block">
+                        <b>Area: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.area }},
+                        </div>
+                      </div>
+                      <div class="d-md-inline-block d-none">
+                        <b>District: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.district }}
+                        </div>
+                        <br />
+                      </div>
+                      <div class="d-md-inline-block d-none">
+                        <b>Pincode: &nbsp;</b>
+                        <div class="d-inline-block me-2">
+                          {{ orderDetails.address.pincode }}
+                        </div>
+                      </div>
+                      <br />
+                      <div class="d-inline-block">
+                        <b>Landmark: &nbsp;</b>
+                        <div class="d-inline-block">
+                          {{ orderDetails.address.landmark }}
+                        </div>
+                      </div>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

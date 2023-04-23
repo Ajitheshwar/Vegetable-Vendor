@@ -92,13 +92,13 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body" id="">
+        <div class="modal-body">
           <div
             class="card shadow"
             style="border-radius: 20px; padding: 10px"
             id="orderSummary"
           >
-            <div class="container" id="modelProductDetails">
+            <div class="container">
               <div *ngFor="let product of modalOrder.products" class="d-flex">
                 <img [src]="product.productId.image" alt="" class="order-img" />
                 <div class="w-100 d-flex justify-content-between">

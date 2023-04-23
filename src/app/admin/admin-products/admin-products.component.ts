@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
   FormBuilder,
   NgForm,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { map, Observable } from 'rxjs';
 import { AdminProduct, CatandSubCat } from 'src/models/product';
 import { AdminDataService } from '../admin-data.service';
 
@@ -18,9 +18,15 @@ import { AdminDataService } from '../admin-data.service';
 export class AdminProductsComponent implements OnInit {
   constructor(private data: AdminDataService, private fb: FormBuilder) {}
 
+  @ViewChild('previewImageContainer') previewImageContainer: any;
+
   ngOnInit(): void {
-    this.categoriesAndSubCategories$ =
-      this.data.getCategoriesAndSubCategories();
+    this.data.getCategoriesAndSubCategories().subscribe({
+      next : (result)=>{
+        this.categoriesAndSubCategories = result.data
+      },
+      error : console.log
+    });
     this.data.getProducts().subscribe({
       next: (result) => {
         this.totalProducts = result.products;
@@ -32,12 +38,48 @@ export class AdminProductsComponent implements OnInit {
     });
   }
 
+  validateCostPriceAndSellingPrice(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    let costPrice = control.get('costPrice')?.value;
+    let sellingPrice = control.get('sellingPrice')?.value;
+    return costPrice && sellingPrice && costPrice > sellingPrice
+      ? {
+          costPrice,
+          sellingPrice,
+          message: 'costPrice is greater than sellingPrice',
+        }
+      : null;
+  }
+
   orderProducts = this.fb.group({
     products: this.fb.array([]),
   });
 
+  newProduct = this.fb.group(
+    {
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      subCategory: ['', Validators.required],
+      description: ['', Validators.required],
+      benefits: this.fb.array([]),
+      costPrice: [0, [Validators.required, Validators.min(0)]],
+      sellingPrice: [0, [Validators.required, Validators.min(0)]],
+      productImage: [],
+      numberOfDays: [-1, Validators.required],
+    },
+    { validators: this.validateCostPriceAndSellingPrice }
+  );
+
+  productUpdateImage = this.fb.group({
+    id : [''],
+    name : [''],
+    image : [''],
+    productImage : []
+  })
+
   totalProducts: AdminProduct[] = [];
-  categoriesAndSubCategories$: any;
+  categoriesAndSubCategories: any;
   allowFilters: boolean = false;
   products: AdminProduct[] = [];
   showMoreData: boolean = false;
@@ -45,6 +87,40 @@ export class AdminProductsComponent implements OnInit {
   editProductIndex: number = -1;
   notifications: any[] = [];
   search: string = '';
+
+  updateProductImageDetails(image : string,name : string, id : string){
+    this.productUpdateImage.patchValue({
+      image : image,
+      name : name,
+      id : id
+    })
+  }
+
+  updateProductImagePhoto(event : any){
+    // console.log("Hi")
+    let fileInput = event.target as HTMLFormElement;
+    // console.log("Hi")
+    if (fileInput['files'] && fileInput['files'].length > 0) {
+      let src = URL.createObjectURL(fileInput['files'][0]);
+      this.productUpdateImage.patchValue({
+        image : src,
+        productImage : fileInput['files'][0]
+      })
+      console.log(this.productUpdateImage.value)
+    }
+  }
+
+  updateProductImage(){
+    let obj : any= {...this.productUpdateImage.value}
+    let formData = new FormData()
+    formData.append("id",obj.id)
+    formData.append("productImage",obj.productImage)
+
+    this.data.updateProductImage(formData).subscribe({
+      next : console.log,
+      error : console.log
+    })
+  }
 
   updateNotifications() {
     this.notifications = [];
@@ -59,6 +135,47 @@ export class AdminProductsComponent implements OnInit {
         });
       }
     }
+  }
+
+  get benefits() {
+    return this.newProduct.get('benefits') as FormArray;
+  }
+
+  addNewBenefit() {
+    this.benefits.push(this.fb.control(''));
+  }
+
+  deleteBenefit(index: number) {
+    this.benefits.removeAt(index);
+  }
+
+  previewImageUser(event: any) {
+    // console.log("Hi")
+    let fileInput = event.target as HTMLFormElement;
+    if (fileInput['files'] && fileInput['files'].length > 0) {
+      let src = URL.createObjectURL(fileInput['files'][0]);
+      this.previewImageContainer.nativeElement.src = src;
+      this.previewImageContainer.nativeElement.className = 'profile-image';
+      // console.log(event);
+      const file = fileInput['files'][0];
+      this.newProduct.patchValue({
+        productImage: file,
+      });
+    }
+  }
+
+  addProduct() {
+    let value: any = { ...this.newProduct.value };
+    value.benefits = JSON.stringify(value.benefits);
+    console.log(value)
+    let formData = new FormData();
+    for (let key in value) {
+      formData.append(key, value[key]);
+    }
+    this.data.addProduct(formData).subscribe({
+      next: console.log,
+      error: console.log,
+    });
   }
 
   getOrderProducts() {
@@ -82,45 +199,32 @@ export class AdminProductsComponent implements OnInit {
     }
   }
 
-  getProductAtIndex(index : number){
-    return (this.orderProducts.get('products') as FormArray).at(index)
+  getProductAtIndex(index: number) {
+    return (this.orderProducts.get('products') as FormArray).at(index);
   }
 
-  updateOrderProductsInDB(){
-    let values : any = this.orderProducts.value.products
-    let updateDetails = []
-    for(let i=0;i<this.totalProducts.length;i++){
+  updateOrderProductsInDB() {
+    let values: any = this.orderProducts.value.products;
+    let updateDetails = [];
+    for (let i = 0; i < this.totalProducts.length; i++) {
       let obj = {
-        ...values[i]
-      }
-      let array  = this.totalProducts[i].stockFromPastDays
-      array[array.length-1] += values[i].quantity
-      
-      obj.quantity = array
-      obj.name = this.totalProducts[i].name
-      updateDetails.push(obj)
+        ...values[i],
+      };
+      let array = this.totalProducts[i].stockFromPastDays;
+      array[array.length - 1] += values[i].quantity;
+
+      obj.quantity = array;
+      obj.name = this.totalProducts[i].name;
+      updateDetails.push(obj);
     }
     this.data.updateProductTodayData(updateDetails).subscribe({
-      next : (result)=>{
-        alert(result.message)
-        this.products = this.totalProducts = result.data
+      next: (result) => {
+        alert(result.message);
+        this.products = this.totalProducts = result.data;
       },
-      error : console.log
-    })
+      error: console.log,
+    });
   }
-
-  validateCostPriceAndSellingPrice(control: AbstractControl) {
-    let costPrice = control.get('costPrice')?.value;
-    let sellingPrice = control.get('sellingPrice')?.value;
-    return costPrice && sellingPrice && costPrice > sellingPrice
-      ? {
-          costPrice,
-          sellingPrice,
-          message: 'costPrice is greater than sellingPrice',
-        }
-      : null;
-  }
-
 
   calculateQuantity(values: number[]) {
     return values.reduce((sum, value) => sum + value);
