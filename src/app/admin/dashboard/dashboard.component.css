@@ -1,0 +1,93 @@
+
+.dashboard-heading {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.dashboard-number {
+  font-size: 24px;
+}
+
+.primary {
+  border-left: 5px solid #4e73df;
+}
+
+.primary .dashboard-heading {
+  color: #4e73df;
+}
+
+.danger {
+  border-left: 5px solid #dc3545;
+}
+
+.danger .dashboard-heading {
+  color: #dc3545;
+}
+
+.success {
+  border-left: 5px solid #198754;
+}
+
+.success .dashboard-heading {
+  color: #198754;
+}
+
+.purple {
+  border-left: 5px solid #6f42c1;
+}
+
+.purple .dashboard-heading {
+  color: #6f42c1;
+}
+
+.indigo {
+  border-left: 5px solid #6610f2;
+}
+
+.indigo .dashboard-heading {
+  color: #6610f2;
+}
+
+.cyan {
+  border-left: 5px solid #0dcaf0;
+}
+
+.cyan .dashboard-heading {
+  color: #0dcaf0;
+}
+
+.dashboard-img {
+  width: 50px;
+  margin: 5px 0;
+}
+
+.ngx-charts-outer {
+  margin: auto;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.table-data {
+  margin: 20px auto;
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  height: 500px;
+  overflow: auto auto;
+  max-width: 1000px;
+}
+
+.graph {
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 2rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+}

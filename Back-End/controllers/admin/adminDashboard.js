@@ -5,18 +5,18 @@ const dailyEachProducts =
 const Products = require("../../models/products").Products;
 
 async function getDashboardDetails(req, res) {
-    //console.log(req.params);
+    
     try {
         let month = parseInt(req.params.month);
         let thisMonth = new Date(2023, month);
         let nextMonth = new Date(2023, month + 1);
-        //console.log(thisMonth, nextMonth);
+        
         dailyDashboardModel
             .find({
                 date: { $gte: thisMonth, $lt: nextMonth },
-            })
+            },"date loss profit -_id")
             .then((dailyDashboardOfMonth) => {
-                res.send(dailyDashboardOfMonth);
+                res.send({data : dailyDashboardOfMonth});
             })
             .catch((error) => {
                 throw new Error("Error in getting dashboard Details", error);
@@ -65,8 +65,8 @@ async function getDashboardOfCategory(req, res) {
                     },
                 },
             ])
-            .then((orders) => {
-                res.status(200).send(orders);
+            .then((data) => {
+                res.status(200).send({data});
             })
             .catch((error) => {
                 throw new Error(
@@ -84,9 +84,9 @@ async function getDashboardOfCategory(req, res) {
 
 async function getTotalData(req, res) {
     try {
-        Admin.findOne({}, "totalLoss totalProfit totalRevenue notifications")
+        Admin.findOne({}, "totalLoss totalProfit totalRevenue")
             .then((adminData) => {
-                res.status(200).send(adminData);
+                res.status(200).send({data : adminData});
             })
             .catch((error) => {
                 throw new Error("Error in getting admin data", error);
@@ -110,7 +110,7 @@ async function getAdminDashboardSingleProduct(req, res) {
                 date: { $gte: prevMonth, $lt: thisMonth },
             })
             .then((productDetails) => {
-                res.send(productDetails);
+                res.send({data : productDetails});
             })
             .catch((error) => {
                 throw new Error(
@@ -129,8 +129,9 @@ async function getAdminDashboardSingleProduct(req, res) {
 async function getSingleProductPresentDetails(req, res) {
     //console.log(req.params);
     try {
-        let result = await Products.findOne({ name: req.params.product });
-        let date = new Date("2023-3-26");
+        let result = await Products.findOne({ name: req.params.product }, "-description -benefits -id -date -image").lean();
+        // let date = new Date("2023-3-26");
+        let date = new Date()
         let today = new Date(
             date.getFullYear(),
             date.getMonth(),
@@ -149,7 +150,8 @@ async function getSingleProductPresentDetails(req, res) {
             },
             "wasted"
         );
-        res.send({ data: result, wasted: wasted.wasted });
+        result.wasted = wasted.wasted
+        res.send({ data: result});
     } catch (error) {
         console.log(error);
         res.status(400).send(

@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
     this.data.getCategoriesAndSubCategories().subscribe({
       next : (result) => {
         console.log(result)
-        this.categoriesAndSubCategories = result
+        this.categoriesAndSubCategories = result.data
       }
     })
     this.category = 'all'

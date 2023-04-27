@@ -1,0 +1,154 @@
+#pages li {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  min-width: 40px;
+  width: fit-content;
+  font-weight: 400;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 10px 3px;
+  cursor: pointer;
+}
+
+#pages li:hover {
+  border: 1px solid white;
+  background-color: #82ae46;
+  color: white;
+}
+
+.orderBox {
+  position: relative;
+  width: 80%;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 0 20px 3px rgb(166, 165, 165);
+  cursor: pointer;
+  transition: all 0.6s;
+}
+
+.orderDate {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 12px;
+}
+
+.orderState {
+  border-radius: 15px;
+  color: white;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.Pending {
+  background-color: red;
+}
+
+.Delivered {
+  background-color: green;
+}
+
+.orderBox:hover {
+  transform: scale(1.1);
+}
+
+.address .d-inline-block,
+.d-md-inline-block {
+  font-size: 12px;
+  scroll-margin-right: 5px;
+}
+
+.product {
+  font-size: 12px;
+}
+
+.order-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  z-index: 1;
+  margin: 10px;
+}
+
+.productQuantity {
+  display: inline;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid green;
+  color: green;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.dashboard-heading {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.dashboard-number {
+  font-size: 24px;
+}
+
+.primary {
+  border-left: 5px solid #4e73df;
+}
+
+.primary .dashboard-heading {
+  color: #4e73df;
+}
+
+.danger {
+  border-left: 5px solid #dc3545;
+}
+
+.danger .dashboard-heading {
+  color: #dc3545;
+}
+
+.success {
+  border-left: 5px solid #198754;
+}
+
+.success .dashboard-heading {
+  color: #198754;
+}
+
+.purple {
+  border-left: 5px solid #6f42c1;
+}
+
+.purple .dashboard-heading {
+  color: #6f42c1;
+}
+
+.indigo {
+  border-left: 5px solid #6610f2;
+}
+
+.indigo .dashboard-heading {
+  color: #6610f2;
+}
+
+.cyan {
+  border-left: 5px solid #0dcaf0;
+}
+
+.cyan .dashboard-heading {
+  color: #0dcaf0;
+}
+
+.dashboard-img {
+  width: 50px;
+  margin: 5px 0;
+}
+
+.ngx-charts-outer {
+  margin: auto;
+}

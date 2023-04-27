@@ -7,7 +7,6 @@ import { UserComponent } from './user.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AccountComponent } from './account/account.component';
-import { AboutComponent } from './about/about.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import { AddressBookComponent } from './address-book/address-book.component';
 import { SendFeedbackComponent } from './send-feedback/send-feedback.component';
@@ -20,7 +19,6 @@ import { AppCommonModule } from '../app-common/app-common.module';
     CartComponent,
     CheckoutComponent,
     AccountComponent,
-    AboutComponent,
     EditAccountComponent,
     AddressBookComponent,
     SendFeedbackComponent,

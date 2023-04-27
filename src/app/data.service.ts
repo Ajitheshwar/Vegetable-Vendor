@@ -18,7 +18,7 @@ import { LoginDetails, SignUpDetails } from '../models/login';
   providedIn: 'root',
 })
 export class DataService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   httpErrorHandler(error: HttpErrorResponse) {
     console.log(error);
@@ -51,7 +51,7 @@ export class DataService {
   }
 
   //Products Page--------------------------------------------------------------------------------------------------------------
-  getCategoriesAndSubCategories(): Observable<CatandSubCat[]> {
+  getCategoriesAndSubCategories(): Observable<{ data: CatandSubCat[] }> {
     return this.http
       .get<any>(
         'http://localhost:3000/user/products/getCategoriesAndSubCategories'
@@ -59,35 +59,35 @@ export class DataService {
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getCategoryProducts(category: string, page: number): Observable<{data : Product[], total_pages : number}> {
+  getCategoryProducts(category: string, page: number): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
         'http://localhost:3000/user/products/getProducts/category/' +
-          category +
-          '/' +
-          page
+        category +
+        '/' +
+        page
       )
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getFilteredProducts(filteredProducts: string, page: number): Observable<{data : Product[], total_pages : number}> {
+  getFilteredProducts(filteredProducts: string, page: number): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
         'http://localhost:3000/user/products/getProducts/subCategories/' +
-          filteredProducts +
-          '/' +
-          page
+        filteredProducts +
+        '/' +
+        page
       )
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getSearchedProducts(search: string, page: number): Observable<{data : Product[], total_pages : number}> {
+  getSearchedProducts(search: string, page: number): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
         'http://localhost:3000/user/products/getProducts/search/' +
-          search +
-          '/' +
-          page
+        search +
+        '/' +
+        page
       )
       .pipe(catchError(this.httpErrorHandler));
   }
@@ -106,7 +106,7 @@ export class DataService {
   }
 
   //account---------------------------------------------------------------------------------------------------------------
-  userObj = {last_name : '', first_name: '',image : '', contact_number : '',_id : '',email_address : ''}
+  userObj = { last_name: 'a', first_name: 'a', image: '', contact_number: '', _id: '', email_address: '' }
   userDetails = new BehaviorSubject<UserDetails>(this.userObj);
   userDetailsObservable = this.userDetails.asObservable();
   updateUserDetails(userObj: UserDetails) {
@@ -141,33 +141,33 @@ export class DataService {
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getOrderDetails() : Observable<{message : Order[]}>{
+  getOrderDetails(): Observable<{ message: Order[] }> {
     return this.http.get<any>("http://localhost:3000/user/orders/getOrders")
-    .pipe(catchError(this.httpErrorHandler));
+      .pipe(catchError(this.httpErrorHandler));
   }
 
-  getAddresses() : Observable<{message :Address[]}>{
+  getAddresses(): Observable<{ message: Address[] }> {
     return this.http.get<any>("http://localhost:3000/user/details/getAddresses")
-    .pipe(catchError(this.httpErrorHandler));
+      .pipe(catchError(this.httpErrorHandler));
   }
 
-  deleteAddress(id : string) : Observable<any>{
-    return this.http.put<any>("http://localhost:3000/user/details/deleteAddress",{id}).pipe(catchError(this.httpErrorHandler))
+  deleteAddress(id: string): Observable<any> {
+    return this.http.put<any>("http://localhost:3000/user/details/deleteAddress", { id }).pipe(catchError(this.httpErrorHandler))
   }
 
-  addAddress(obj : any) : Observable<any>{
-    return this.http.post<any>("http://localhost:3000/user/details/updateAddress",{address : obj}).pipe(catchError(this.httpErrorHandler))
+  addAddress(obj: any): Observable<any> {
+    return this.http.post<any>("http://localhost:3000/user/details/updateAddress", { address: obj }).pipe(catchError(this.httpErrorHandler))
   }
 
-  getChatMessages(email : string) : Observable<{messages : Message[]}>{
-    return this.http.get<any>("http://localhost:3000/user/details/getMessages/"+email).pipe(catchError(this.httpErrorHandler))
+  getChatMessages(email: string): Observable<{ messages: Message[] }> {
+    return this.http.get<any>("http://localhost:3000/user/details/getMessages/" + email).pipe(catchError(this.httpErrorHandler))
   }
 
-  sendChatMessage(data : any) : Observable<any>{
-    return this.http.post<any>("http://localhost:3000/user/details/sendMessage",data).pipe(catchError(this.httpErrorHandler))
+  sendChatMessage(data: any): Observable<any> {
+    return this.http.post<any>("http://localhost:3000/user/details/sendMessage", data).pipe(catchError(this.httpErrorHandler))
   }
 
-  placeOrder(data : any) : Observable<any>{
-    return this.http.post<any>("http://localhost:3000/user/orders/addOrders",data).pipe(catchError(this.httpErrorHandler))
+  placeOrder(data: any): Observable<any> {
+    return this.http.post<any>("http://localhost:3000/user/orders/addOrders", data).pipe(catchError(this.httpErrorHandler))
   }
 }

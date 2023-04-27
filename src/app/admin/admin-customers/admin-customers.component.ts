@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminUserDetails } from 'src/models/user';
 import { AdminDataService } from '../admin-data.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class AdminCustomersComponent implements OnInit {
 
   loadedCustomersData: boolean = false;
   page: number = 1;
-  customers: any[] = [];
+  customers: AdminUserDetails[] = [];
   maxPages: number = 0;
   searchBy: string = 'name';
   search: string = '';

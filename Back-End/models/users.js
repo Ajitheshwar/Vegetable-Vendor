@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema({
     },
     image : {
         type : String,
-        default : ""
+        default : "https://res.cloudinary.com/dsrogc0uc/image/upload/v1682232774/Vegetable-Vendor/account-logo_p9hgha-Square_om5jvv.png"
     },
     notification : {
         type : Boolean,

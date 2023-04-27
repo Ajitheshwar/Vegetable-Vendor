@@ -1,0 +1,219 @@
+<div style="background-color: rgb(235, 235, 235)" class="px-4">
+  <div class="row p-4 mx-0">
+    <div class="col-md-6 mb-4">
+      <div class="card purple shadow h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="dashboard-heading">Net Income</div>
+              <div class="dashboard-number">
+                &#8377;{{
+                  dashboardDetails.totalRevenue - dashboardDetails.totalLoss
+                    | numberFormat
+                }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873839/Vegetable-Vendor/accounting_sulvzd.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card primary shadow h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="dashboard-heading">Revenue</div>
+              <div class="dashboard-number">
+                &#8377;{{ dashboardDetails.totalRevenue | numberFormat }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873855/Vegetable-Vendor/revenue_i5krrq.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card success shadow h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="dashboard-heading">Profit</div>
+              <div class="dashboard-number">
+                &#8377;{{ dashboardDetails.totalProfit | numberFormat }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873855/Vegetable-Vendor/profit_fdjy0d.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card danger shadow h-100">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col me-2">
+              <div class="dashboard-heading">Loss</div>
+              <div class="dashboard-number">
+                &#8377;{{ dashboardDetails.totalLoss | numberFormat }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873856/Vegetable-Vendor/recession_jhs7md.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <label for="month" class="form-label me-3">Month</label>
+    <select
+      name="month"
+      id="month"
+      class="form-control d-inline"
+      style="width: 200px"
+      (change)="getDetailsOfMonth($event)"
+    >
+      <option *ngFor="let month of monthOptions; let i = index" value="{{ i }}">
+        {{ month }}
+      </option>
+    </select>
+  </div>
+  <div class="text-center mb-5" style="width: 100%; overflow: scroll">
+    <div class="graph">
+      <div style="display: inline-block" class="p-3">
+        <ngx-charts-area-chart
+          [results]="dashboardDetailsOfMonth"
+          [view]="[1000, 500]"
+          [legend]="true"
+          legendTitle="Products"
+          [xAxis]="true"
+          [yAxis]="true"
+          [customColors]="colorScheme"
+          [gradient]="true"
+        ></ngx-charts-area-chart>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div
+    class="d-flex justify-content-around"
+    style="max-width: 700px; margin: 0 auto"
+  >
+    <button
+      class="btn btn-outline-success px-3 py-2"
+      id="choice1"
+      (click)="getDashboardDetailsOfCategory('Vegetable')"
+    >
+      Vegetables
+    </button>
+    <button
+      class="btn btn-outline-success px-3 py-2"
+      id="choice2"
+      (click)="getDashboardDetailsOfCategory('Fruit')"
+    >
+      Fruits
+    </button>
+    <button
+      class="btn btn-outline-success px-3 py-2"
+      id="choice3"
+      (click)="getDashboardDetailsOfCategory('Dry Fruits')"
+    >
+      Dry Fruits
+    </button>
+  </div>
+
+  <div class="text-center" style="width: 100%; overflow: scroll">
+    <div class="graph mt-3">
+        <div class="d-inline-block">
+          <ngx-charts-bar-vertical-2d
+            [view]="[1000, 500]"
+            [results]="graphDashboardDetailsOfProducts"
+            [legend]="true"
+            legendTitle="Products"
+            [xAxis]="true"
+            [yAxis]="true"
+            [customColors]="colorScheme"
+            [groupPadding]="4"
+            [barPadding]="2"
+          ></ngx-charts-bar-vertical-2d>
+        </div>
+    </div>
+  </div>
+
+  <div class="table-data mt-5">
+    <div class="table-responsive p-3">
+      <table
+        class="table table-bordered table-striped"
+        style="position: relative"
+      >
+        <thead style="text-align: center;">
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Revenue</th>
+            <th>Profit</th>
+            <th>Loss</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of dashboardDetailsOfProducts; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ product._id }}</td>
+            <td>&#8377;{{ product.revenue | numberFormat }}</td>
+            <td>&#8377;{{ product.profit | numberFormat }}</td>
+            <td>&#8377;{{ product.loss | numberFormat }}</td>
+            <td class="text-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-box-arrow-right"
+                viewBox="0 0 16 16"
+                style="cursor : pointer"
+                (click)="navigateToSingleProduct(product._id)"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                />
+              </svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="py-3"></div>
+</div>

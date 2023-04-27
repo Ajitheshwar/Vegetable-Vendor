@@ -6,7 +6,7 @@
   display: inline-block;
   margin-right: 20px;
   background-color: #3dbf30;
-  color : red
+  color: red;
 }
 
 .orderBox {
@@ -36,11 +36,15 @@
 }
 
 .Pending {
-    background-color: red;
+  background-color: red;
 }
 
-.Delivered{
-    background-color: green;
+.Delivered {
+  background-color: green;
+}
+
+.Out_for_Delivery {
+  background-color: #0dcaf0;
 }
 
 .orderBox:hover {
@@ -57,22 +61,22 @@
   font-size: 12px;
 }
 
-.order-img{
-    width : 100px;
-    height : 100px;
-    border-radius: 10px;
-    z-index : 1;
-    margin : 10px;
+.order-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  z-index: 1;
+  margin: 10px;
 }
 
-.productQuantity{
-    display: inline;
-    padding : 5px 10px;
-    border-radius : 5px;
-    border : 1px solid green;
-    color : green
+.productQuantity {
+  display: inline;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid green;
+  color: green;
 }
 
-::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+  display: none;
 }

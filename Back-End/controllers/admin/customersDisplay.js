@@ -93,10 +93,12 @@ const singleCustomer = async (req, res) => {
       .populate(
         "orders",
         "date modeOfPayment status totalCost",
-        Orders
+        Orders,
+        null,
+        {sort : {date : -1}}
       )
       .then((result) => {
-        console.log(result)
+        // console.log(result)
         res.send({ data: result });
       })
       .catch((error) => {

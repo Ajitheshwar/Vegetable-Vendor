@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(ref: NgForm) {
-    // console.log(ref.value);
+    console.log(ref.value);
     this.data.login(ref.value).subscribe({
       next: (result) => {
         console.log(result)

@@ -1,0 +1,119 @@
+<div style="background-color: rgb(235, 235, 235)" class="px-4 py-3">
+  <h4 class="text-center">
+    <span id="product">{{product}}:</span><span class="d-inline-block ms-3 mt-2 mt-sm-0">STOCKS FROM PREVIOUS DAYS</span>
+  </h4>
+  <div style="width: 80%; margin: 0 auto; overflow: auto; text-align: center;" class="mt-4">
+    <div
+        class="d-inline-flex  mb-4 text-center"
+        id="stock"
+    >
+    <ng-container *ngIf="presentDetails.numberOfDays>0">
+      <div class="box" *ngFor="let stock of presentDetails.stockFromPastDays; index as i">
+        <ng-container *ngIf="presentDetails.numberOfDays-1 > i">
+          <p> PAST {{presentDetails.numberOfDays - i - 1}} DAYS</p>
+          <h6> {{stock}} KG </h6>
+        </ng-container>
+        <ng-container *ngIf="presentDetails.numberOfDays-1 === i">
+          <p>TODAY</p>
+          <h6>{{stock}}KG</h6>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="presentDetails.numberOfDays===-1">
+      <div class="box">
+        <p>TODAY</p>
+        <h6>{{presentDetails.stockFromPastDays[0]}}</h6>
+      </div>
+    </ng-container>
+    </div>
+  </div>
+  <h4 class="text-center my-3">PRESENT STATE</h4>
+  <div class="d-sm-flex justify-content-center text-center mb-5">
+    <div class="d-inline-block">
+        <div class="box border border-danger bg-danger text-white">
+            <p class="text-white">WASTED</p>
+            <h6 id="wasted">{{presentDetails.wasted}}KG</h6>
+        </div>
+        <div class="box border border-success bg-success text-white">
+            <p class="text-white"> total stock</p>
+            <h6 id="totalStock">{{totalStock}}KG</h6>
+        </div>
+    </div>
+    <div class="d-inline-block">
+        <div class="box">
+            <p>COST PRICE</p>
+            <h6 id="costPrice">&#8377;{{presentDetails.costPrice}}</h6>
+        </div>
+        <div class="box">
+            <p>SELLING PRICE</p>
+            <h6 id="sellingPrice">&#8377;{{presentDetails.sellingPrice}}</h6>
+        </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <label for="month" class="form-label me-3">Month</label>
+    <select
+      name="month"
+      id="month"
+      class="form-control d-inline"
+      style="width: 200px"
+      (change)="getDetailsOfMonth($event)"
+    >
+      <option *ngFor="let month of monthOptions; let i = index" value="{{ i }}">
+        {{ month }}
+      </option>
+    </select>
+  </div>
+  
+  <div class="text-center" style="width: 100%; overflow: scroll">
+    <div class="graph">
+      <div style="display: inline-block" class="p-3">
+        <ngx-charts-bar-vertical-2d
+          [results]="graphDetails"
+          [view]="[1000, 500]"
+          [legend]="true"
+          legendTitle="Products"
+          [xAxis]="true"
+          [yAxis]="true"
+          [customColors]="colorScheme"
+          [barPadding]="2"
+          [groupPadding]="4"
+        ></ngx-charts-bar-vertical-2d>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="table-data mt-5">
+    <div class="table-responsive p-3">
+      <table
+        class="table table-bordered table-striped"
+      >
+        <thead style="text-align: center;">
+          <tr>
+            <th>Date</th>
+            <th>Cost Price</th>
+            <th>Selling Price</th>
+            <th>Sale Quantity</th>
+            <th>Revenue</th>
+            <th>Profit</th>
+            <th>Loss</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productDashboardDetails">
+            <td>{{ product.date | date : 'dd/MM/yyyy hh:mm aa' }}</td>
+            <td>&#8377;{{product.costPrice}}</td>
+            <td>&#8377;{{product.sellingPrice}}</td>
+            <td>{{product.quantity}}KG</td>
+            <td>&#8377;{{ (product.sellingPrice * product.quantity) | numberFormat }}</td>
+            <td>&#8377;{{ (product.sellingPrice - product.costPrice)*product.quantity | numberFormat }}</td>
+            <td>&#8377;{{ (product.costPrice)*product.wasted | numberFormat }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="py-3"></div>
+</div>

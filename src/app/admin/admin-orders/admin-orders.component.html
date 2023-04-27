@@ -1,0 +1,607 @@
+<div class="row px-4 pt-4">
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card purple shadow h-100">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col me-2">
+            <div class="dashboard-heading">Net Income</div>
+            <div class="dashboard-number">
+              &#8377;{{
+                todaysDashboard.revenue - todaysDashboard.loss | numberFormat
+              }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <img
+              src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873839/Vegetable-Vendor/accounting_sulvzd.png"
+              class="dashboard-img"
+              alt="Hello"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card primary shadow h-100">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col me-2">
+            <div class="dashboard-heading">Revenue</div>
+            <div class="dashboard-number">
+              &#8377;{{ todaysDashboard.revenue | numberFormat }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873855/Vegetable-Vendor/revenue_i5krrq.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card success shadow h-100">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col me-2">
+            <div class="dashboard-heading">Profit</div>
+            <div class="dashboard-number">
+              &#8377;{{ todaysDashboard.profit | numberFormat }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873855/Vegetable-Vendor/profit_fdjy0d.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card danger shadow h-100">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col me-2">
+            <div class="dashboard-heading">Loss</div>
+            <div class="dashboard-number">
+              &#8377;{{ todaysDashboard.loss | numberFormat }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="col-auto">
+              <img
+                src="https://res.cloudinary.com/dsrogc0uc/image/upload/v1680873856/Vegetable-Vendor/recession_jhs7md.png"
+                class="dashboard-img"
+                alt="Hello"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card cyan shadow h-100">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col me-2">
+            <div class="dashboard-heading">Active Customers</div>
+            <div class="dashboard-number">
+              {{ todaysDashboard.customers | numberFormat }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+              height="50"
+              fill="currentColor"
+              class="bi bi-person-check"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+              />
+              <path
+                d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card indigo shadow h-100">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col me-2">
+            <div class="dashboard-heading">Number of Orders</div>
+            <div class="dashboard-number">
+              {{ todaysDashboard.orders | numberFormat }}
+            </div>
+          </div>
+          <div class="col-auto">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+              height="50"
+              fill="currentColor"
+              class="bi bi-arrow-up-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="my-3 me-3 d-flex justify-content-between">
+  <button
+    class="ms-3 btn btn-outline-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#productAnalysisModal"
+  >
+    Product Analysis
+  </button>
+  <div class="d-inline-flex">
+    <input
+      type="date"
+      class="form-control"
+      style="max-width: 300px"
+      [max]="today"
+      (change)="getOrdersOfDate($event)"
+    />
+    <button class="btn btn-dark ms-2" (click)="reset()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-repeat"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+        />
+        <path
+          fill-rule="evenodd"
+          d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="container p-3 border border-secondary rounded-3">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead class="text-center">
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>No. of Products</th>
+          <th>Status</th>
+          <th>Update Status</th>
+          <th>Total Cost</th>
+          <th>Mode Of Payment</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="loadedOrderDetails">
+        <tr *ngFor="let order of orders; index as i">
+          <td>{{ (page - 1) * 10 + i + 1 }}</td>
+          <td>{{ order.date | date : "dd/MM/yy, hh:mm aa" }}</td>
+          <td>{{ order.customerId.first_name }}</td>
+          <td>{{ order.customerId.last_name }}</td>
+          <td class="text-center">{{ order.products.length }}</td>
+          <td>{{ order.status.split("_").join(" ") }}</td>
+          <td [ngSwitch]="order.status" class="text-center">
+            <svg
+              *ngSwitchCase="'Pending'"
+              (click)="updateOrderStatus('Out_for_Delivery', order._id, i)"
+              style="color: #dc3545; cursor: pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-exclamation-circle-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+              />
+            </svg>
+            <svg
+              *ngSwitchCase="'Out_for_Delivery'"
+              (click)="updateOrderStatus('Delivered', order._id, i)"
+              style="color: #0dcaf0; cursor: pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-truck"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+              />
+            </svg>
+            <svg
+              *ngSwitchDefault
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-check-circle-fill"
+              viewBox="0 0 16 16"
+              style="color: #198754"
+            >
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+              />
+            </svg>
+          </td>
+          <td class="text-center">&#8377;{{ order.totalCost }}</td>
+          <td>{{ order.modeOfPayment }}</td>
+          <td>
+            <button
+              class="btn"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              (click)="getOrderDetails(order._id)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-journal"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="text-center mt-3">
+  <button
+    class="btn btn-outline-success rounded-pill px-3 py-1"
+    [disabled]="page == 1"
+    (click)="loadOrdersData(page - 1)"
+  >
+    Prev
+  </button>
+  <ul class="d-inline-block ps-0" id="pages">
+    <li *ngIf="page - 1 > 0" (click)="loadOrdersData(page - 1)">
+      {{ page - 1 }}
+    </li>
+    <li style="background-color: #82ae46; color: white">{{ page }}</li>
+    <li *ngIf="page + 1 <= maxPages" (click)="loadOrdersData(page + 1)">
+      {{ page + 1 }}
+    </li>
+  </ul>
+  <button
+    class="btn btn-outline-success rounded-pill px-3 py-1"
+    [disabled]="page == maxPages"
+    (click)="loadOrdersData(page + 1)"
+  >
+    Next
+  </button>
+</div>
+
+<!--Single Order Modal-->
+<div id="inv">
+  <div
+    class="modal fade w-100"
+    id="orderModal"
+    tabindex="-1"
+    aria-labelledby="orderModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" id="invoice1">
+      <div class="modal-content" id="">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="orderModal">Order Summary</h1>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" *ngIf="loadedSingleOrderDetails">
+          <div
+            class="card shadow"
+            style="border-radius: 20px; padding: 10px"
+            id="orderSummary"
+          >
+            <div class="container">
+              <div *ngFor="let product of orderDetails.products" class="d-flex">
+                <img [src]="product.productId.image" alt="" class="order-img" />
+                <div class="w-100 d-flex justify-content-between">
+                  <div>
+                    <h4 id="modelProduct">
+                      {{ product.name }}
+                      <span style="font-size: 14px"
+                        >({{ product.quantity }}
+                        <span style="font-size: 12px">KG</span> )</span
+                      >
+                    </h4>
+                    <div
+                      class="d-flex mb-3 align-items-center"
+                      style="font-size: 12px"
+                    >
+                      <div class="productQuantity">
+                        {{ product.quantity }}
+                      </div>
+                      <div class="ps-2 py-2 text-center">x</div>
+                      <div class="ps-2 py-2 text-center" id="modelCost">
+                        &#8377;{{ product.productId.sellingPrice }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-2" class="d-flex align-items-center">
+                    &#8377;{{
+                      product.productId.sellingPrice * product.quantity
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+            <div class="container" id="itemTotal">
+              <div class="d-flex">
+                <div>Item Total</div>
+
+                <div class="ms-auto p-2" id="total">
+                  &#8377;{{ orderDetails.totalCost - 40 }}
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="">Delivery Charges</div>
+
+                <div class="ms-auto p-2" id="itemDelivered">&#8377;40</div>
+              </div>
+              <hr />
+              <div class="d-flex">
+                <div class="">Grand Total</div>
+
+                <div class="ms-auto p-2" id="itemGrandTotal">
+                  &#8377;{{ orderDetails.totalCost }}
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+          <hr />
+
+          <div class="card shadow" style="border-radius: 20px; padding: 10px">
+            <div class="container">
+              <div class="d-flex">
+                <div class="pt-3">
+                  <h4>Order Details</h4>
+                </div>
+                <hr />
+              </div>
+              <hr />
+              <div class="row">
+                <p class="mb-1"><b>Order Token</b></p>
+                <p style="font-size: smaller" id="orderId">
+                  #{{ orderDetails._id }}
+                </p>
+              </div>
+              <div class="row">
+                <p class="mb-1"><b>Payment</b></p>
+                <p style="font-size: smaller" id="orderMethod">
+                  {{ orderDetails.modeOfPayment }}
+                </p>
+              </div>
+              <div class="row">
+                <p class="mb-1"><b>Date</b></p>
+                <p style="font-size: smaller" id="orderDate">
+                  {{ orderDetails.date | date }}
+                </p>
+              </div>
+              <div class="row">
+                <p class="mb-1"><b>Delivery to</b></p>
+                <p style="font-size: smaller" id="orderDestination">
+                  <span class="address">
+                    <h6 class="mb-1">{{ orderDetails.address.title }}</h6>
+                    <div class="d-inline-block">
+                      <b>House Number: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.houseNumber }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Floor: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.floor }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Street Number: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.streetNumber }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Colony: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.colony }},
+                      </div>
+                    </div>
+                    <div class="d-inline-block">
+                      <b>Area: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.area }},
+                      </div>
+                    </div>
+                    <div class="d-md-inline-block d-none">
+                      <b>District: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.district }}
+                      </div>
+                      <br />
+                    </div>
+                    <div class="d-md-inline-block d-none">
+                      <b>Pincode: &nbsp;</b>
+                      <div class="d-inline-block me-2">
+                        {{ orderDetails.address.pincode }}
+                      </div>
+                    </div>
+                    <br />
+                    <div class="d-inline-block">
+                      <b>Landmark: &nbsp;</b>
+                      <div class="d-inline-block">
+                        {{ orderDetails.address.landmark }}
+                      </div>
+                    </div>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Product Analysis modal-->
+<div
+  class="modal fade"
+  id="productAnalysisModal"
+  tabindex="-1"
+  aria-labelledby="productAnalysisModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" style="max-width: 90%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="productAnalysisModalLabel">
+          Product Analysis
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        class="modal-body py-0 text-center"
+        style="overflow: scroll; height: 600px"
+        *ngIf="loadedTodayProductDetails"
+      >
+        <div class="my-3 d-flex justify-content-around">
+          <button
+            class="btn btn-outline-primary"
+            (click)="displayAllProductDashboard()"
+          >
+            Compare All Products
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            (click)="compareTwoProductsData()"
+          >
+            Compare Two Products
+          </button>
+        </div>
+        <ngx-charts-area-chart
+          *ngIf="compareAllProducts"
+          [results]="chartDetails"
+          [view]="[1000, 400]"
+          [legend]="true"
+          [legendPosition]="legendPosition"
+          legendTitle="Products"
+          [xAxis]="true"
+          [yAxis]="true"
+          [customColors]="colorScheme"
+        ></ngx-charts-area-chart>
+        <div *ngIf="!compareAllProducts">
+          <form
+            [formGroup]="twoProducts"
+            class="d-flex justify-content-around mb-3"
+            (ngSubmit)="twoProducts.valid && getDetailsOfTwoProducts()"
+          >
+            <select
+              name="product1"
+              class="form-control mx-2"
+              formControlName="product1"
+            >
+              <option *ngFor="let product of productNames" [value]="product">
+                {{ product }}
+              </option>
+            </select>
+            <select
+              name="product2"
+              class="form-control mx-2"
+              formControlName="product2"
+            >
+              <option *ngFor="let product of productNames" [value]="product">
+                {{ product }}
+              </option>
+            </select>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="twoProducts.invalid"
+            >
+              Compare
+            </button>
+          </form>
+          <div style="display: inline-block; margin : auto">
+            <ngx-charts-line-chart
+            [view]="[500, 400]"
+            [results]="chartDetails"
+            [legend]="true"
+            legendTitle="Products"
+            [legendPosition]="legendPosition"
+            [xAxis]="true"
+            [yAxis]="true"
+            xAxisLabel="Date"
+            yAxisLabel="Quantity"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+          ></ngx-charts-line-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

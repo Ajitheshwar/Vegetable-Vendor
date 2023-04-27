@@ -9,7 +9,7 @@
     data-bs-target="#orderModal"
   >
     <span class="orderDate">
-      <span [class]="['orderState', obj.status]">{{ obj.status }}</span>
+      <span [class]="['orderState', obj.status]">{{ obj.status.split("_").join(' ')}}</span>
       {{ obj.date | date }}
     </span>
     <div class="d-flex">

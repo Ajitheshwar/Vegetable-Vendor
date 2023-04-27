@@ -1,0 +1,60 @@
+#product{
+  padding-bottom: 3px;
+  border-bottom : 1px solid black;
+}
+
+.box{
+  border-radius : 10px;
+  padding : 15px 20px;
+  display: inline-block;
+  margin : 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  background-color: white;
+  min-width: 100px;
+}
+
+.box p{
+  font-size: 12px;
+  text-transform: uppercase;
+  color : gray;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.box h6{
+  margin-bottom: 0;
+}
+
+.table-data{
+  position: relative;
+  margin : 30px 20px;
+  background-color: white;
+  padding : 20px;
+  padding-top: 0;
+  border-radius : 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  max-height: 500px;
+  overflow: auto;
+}
+
+thead{
+  position: sticky;
+  top : 0;
+  background-color: white;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.graph {
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 2rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+}

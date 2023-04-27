@@ -26,3 +26,29 @@ export type Message = {
   user : string,
   time : Date
 }
+
+export type AdminUserDetails = {
+  _id : string,
+  first_name : string,
+  last_name : string,
+  image : string,
+  contact_number : string,
+  email_address : string,
+  orders : []
+}
+
+export type AdminSingleUserDetails = {
+  _id : string,
+  first_name : string,
+  last_name : string,
+  image : string,
+  contact_number : string,
+  email_address : string,
+  orders : [{
+    _id : string,
+    date : string,
+    modeOfPayment : string,
+    status : string,
+    totalCost : number
+  }]
+}

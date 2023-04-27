@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { AdminProduct, CatandSubCat } from 'src/models/product';
+import { AdminProduct, CatandSubCat, ProductNotification } from 'src/models/product';
 import { AdminDataService } from '../admin-data.service';
 
 @Component({
@@ -79,13 +79,13 @@ export class AdminProductsComponent implements OnInit {
   })
 
   totalProducts: AdminProduct[] = [];
-  categoriesAndSubCategories: any;
+  categoriesAndSubCategories: CatandSubCat[] = [];
   allowFilters: boolean = false;
   products: AdminProduct[] = [];
   showMoreData: boolean = false;
   loadedProducts: boolean = false;
   editProductIndex: number = -1;
-  notifications: any[] = [];
+  notifications: ProductNotification[] = [];
   search: string = '';
 
   updateProductImageDetails(image : string,name : string, id : string){

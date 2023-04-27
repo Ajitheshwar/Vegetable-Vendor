@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
+import { AboutComponent } from '../app-common/about/about.component';
 import { AccountComponent } from './account/account.component';
 import { AddressBookComponent } from './address-book/address-book.component';
 import { CartComponent } from './cart/cart.component';

@@ -34,7 +34,7 @@ const orderSchema = {
     status: {
         type: String,
         default: "Pending",
-        enum:["Pending","Delivered"]
+        enum:["Pending","Delivered","Out_for_Delivery"]
     },
     modeOfPayment: {
         type: String,

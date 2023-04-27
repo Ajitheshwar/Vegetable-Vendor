@@ -1,4 +1,4 @@
-import { Address } from "./user"
+import { Address, UserDetails } from "./user"
 
 export type CatandSubCat = {
     subCategories : [string],
@@ -50,5 +50,23 @@ export type Order = {
     status : string,
     modeOfPayment : string,
     totalCost : number,
-    customerId : string
+    customerId : any
+}
+
+export type ProductNotification = {
+    name : string,
+    quantity : number,
+    category : string,
+    subCategory : string
+}
+
+export interface SingleProduct{
+    name : string,
+    category : string,
+    subCategory : string,
+    sellingPrice : number,
+    wasted : number,
+    costPrice : number,
+    stockFromPastDays : number[],
+    numberOfDays  : number
 }
