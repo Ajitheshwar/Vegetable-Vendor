@@ -57,7 +57,7 @@ export class EditAccountComponent implements OnInit{
         next : (result)=>{
           console.log(this.clock.nativeElement.style.display)
           this.clock.nativeElement.style.display = "none"
-          console.log(result)
+          // console.log(result)
         },
         error : (error)=>[
           console.log(error)

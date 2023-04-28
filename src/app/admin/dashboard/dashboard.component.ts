@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
           }
           this.graphDashboardDetailsOfProducts.push(obj)
         }
-        console.log(this.graphDashboardDetailsOfProducts)
+        // console.log(this.graphDashboardDetailsOfProducts)
       },
       error : console.log
     })

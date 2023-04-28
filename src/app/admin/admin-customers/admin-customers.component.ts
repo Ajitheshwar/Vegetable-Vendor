@@ -56,12 +56,12 @@ export class AdminCustomersComponent implements OnInit {
   }
 
   applySearchFilter() {
-    console.log(this.search);
+    // console.log(this.search);
     this.data
       .getCustomersBySearch(this.searchBy, this.search, this.page)
       .subscribe({
         next: (result) => {
-          console.log(result);
+          // console.log(result);
           this.maxPages = result.maxPages;
           this.customers = result.data;
         },
@@ -75,7 +75,7 @@ export class AdminCustomersComponent implements OnInit {
   }
 
   navigateToSinglePage(id : string){
-    console.log(id)
+    // console.log(id)
     this.router.navigateByUrl("/admin/customer/"+id)
   }
 }

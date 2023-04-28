@@ -111,7 +111,7 @@ export class AdminOrdersComponent implements OnInit {
         (this.orders = result.data),
           (this.maxPages = result.maxPages),
           (this.loadedOrderDetails = true);
-        console.log(result);
+        // console.log(result);
       },
     });
   }
@@ -130,7 +130,7 @@ export class AdminOrdersComponent implements OnInit {
   getOrderDetails(id: string) {
     this.data.getOrderDetails(id).subscribe({
       next: (result) => {
-        console.log(result.data);
+        // console.log(result.data);
         this.orderDetails = result.data;
         this.loadedSingleOrderDetails = true;
       },

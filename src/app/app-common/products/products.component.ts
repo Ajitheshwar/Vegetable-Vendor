@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit {
     this.loadedProductsData = false
     this.data.getCategoriesAndSubCategories().subscribe({
       next : (result) => {
-        console.log(result)
+        // console.log(result)
         this.categoriesAndSubCategories = result.data
       }
     })
@@ -57,6 +57,7 @@ export class ProductsComponent implements OnInit {
   }
 
   loadProductsData(page:number){
+    this.loadedProductsData = false
     if(this.getProductsOf === 1){
       this.selectProductsWithCategory(page)
     }
@@ -89,7 +90,7 @@ export class ProductsComponent implements OnInit {
   }
 
   applySearchFilter(){
-    console.log(this.search)
+    // console.log(this.search)
     if(this.search===''){
       this.applyCategoryFilter('all')
     }else{
@@ -104,6 +105,7 @@ export class ProductsComponent implements OnInit {
         this.totalProducts = result.data
         this.maxPages = result.total_pages
         this.page = page;
+        this.loadedProductsData = true
       }
     })
   }
@@ -113,6 +115,7 @@ export class ProductsComponent implements OnInit {
     this.getProductsOf = 1
     this.data.getCategoryProducts(this.category,page).subscribe({
       next : (result)=>{
+        // console.log(result)
         this.totalProducts = result.data
         this.maxPages = result.total_pages
         this.page = page;
@@ -127,6 +130,7 @@ export class ProductsComponent implements OnInit {
         this.totalProducts = result.data
         this.maxPages = result.total_pages
         this.page = page
+        this.loadedProductsData = true
       }
     })
   }
@@ -165,7 +169,7 @@ export class ProductsComponent implements OnInit {
       this.quantity = value
       this.cart.push(obj)
     }
-    console.log(this.cart)
+    // console.log(this.cart)
     this.data.updateCartDetails(this.cart).subscribe({
       next : (result)=>{
         console.log(result)

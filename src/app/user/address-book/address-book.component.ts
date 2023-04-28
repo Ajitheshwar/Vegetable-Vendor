@@ -37,7 +37,7 @@ export class AddressBookComponent implements OnInit{
     delete obj.other
     this.data.addAddress(obj).subscribe({
       next : (result)=>{
-        console.log(result.message)
+        // console.log(result.message)
         this.addresses.push(obj)
       },
       error : (error)=>{
@@ -49,7 +49,7 @@ export class AddressBookComponent implements OnInit{
   deleteAddress(id : string,index : number){
     this.data.deleteAddress(id).subscribe({
       next : (result)=>{
-        console.log(result)
+        // console.log(result)
         this.addresses.slice(index,1)
       },
       error:(error)=>{

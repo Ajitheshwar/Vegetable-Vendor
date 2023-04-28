@@ -19,7 +19,7 @@ export class DashboardProductComponent implements OnInit {
     
     this.data.getSingleProductDetails(this.product).subscribe({
       next : (result)=>{
-        console.log(result)
+        // console.log(result)
         this.presentDetails = {...result.data}
         this.totalStock = 0;
         for(let stock of result.data.stockFromPastDays){
@@ -31,7 +31,7 @@ export class DashboardProductComponent implements OnInit {
     this.updateMonthOptions()
     this.data.getSingleProductDashboardOfMonth(this.product, this.presentMonth + 1).subscribe({
       next : (result)=>{
-        console.log(result)
+        // console.log(result)
         this.productDashboardDetails = result.data
         this.updateGraphResults()
       }
@@ -110,6 +110,6 @@ export class DashboardProductComponent implements OnInit {
       }
       this.graphDetails.push(obj)
     }
-    console.log(this.graphDetails)
+    // console.log(this.graphDetails)
   }
 }

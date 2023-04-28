@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const bodyparser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -17,7 +16,7 @@ const DBUsername = process.env.DBUsername;
 const DBPassword = process.env.DBPassword;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../Front-End")));
+app.use(express.static(path.join(__dirname, "../dist/demo-project")));
 
 mongoose
   .connect(

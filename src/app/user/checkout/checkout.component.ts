@@ -16,7 +16,7 @@ export class CheckoutComponent implements OnInit{
   ngOnInit(): void {
     this.data.getAddresses().subscribe({
       next : (result)=>{
-        console.log(result)
+        // console.log(result)
         this.addresses = result.message
         this.getSavedAddresses = true;
       },
@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit{
     delete obj.other
     this.data.addAddress(obj).subscribe({
       next : (result)=>{
-        console.log(result.message)
+        // console.log(result.message)
         this.addresses.push(obj)
         this.index = this.addresses.length-1
       },
@@ -95,7 +95,7 @@ export class CheckoutComponent implements OnInit{
 
     this.data.placeOrder(obj).subscribe({
       next : (result)=>{
-        console.log(result)
+        // console.log(result)
         if(loader){
           loader.style.display = 'none'
         }

@@ -35,7 +35,7 @@ export class SendFeedbackComponent implements OnInit{
     this.data.sendChatMessage(data).subscribe({
       next : (result)=>{
         ref.reset()
-        console.log(result)
+        // console.log(result)
       },
       error : console.log
     })

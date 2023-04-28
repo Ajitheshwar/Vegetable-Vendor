@@ -74,11 +74,11 @@ const addAdminProduct = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       console.log(err);
-      res.status(400).send("something went wrong");
+      res.status(400).send({ message : "something went wrong"});
     } else {
       try {
         let obj = { ...req.body };
-        console.log(obj);
+        // console.log(obj);
         obj.benefits = JSON.parse(obj.benefits);
         obj.sellingPrice = parseInt(obj.sellingPrice);
         obj.costPrice = parseInt(obj.costPrice);
@@ -90,9 +90,9 @@ const addAdminProduct = async (req, res) => {
         // console.log(obj)
         let doc = new Products(obj);
         let result = await doc.save();
-        return res.send({ message: "success" });
+        return res.send({ message: "Product Added Successfully" });
       } catch (error) {
-        return res.send("error");
+        return res.send({message : "error"});
       }
     }
   });

@@ -10,6 +10,7 @@ import {
   Observable,
   throwError,
 } from 'rxjs';
+import { userURLs } from 'src/config';
 import { Cart, CatandSubCat, Order, Product } from 'src/models/product';
 import { UserDetails, Address, Message } from 'src/models/user';
 import { LoginDetails, SignUpDetails } from '../models/login';
@@ -27,34 +28,36 @@ export class DataService {
     });
   }
 
+  baseUrl = "http://localhost:3000"
+
   //Login Page-----------------------------------------------------------------------------------------------------------------
   login(obj: LoginDetails): Observable<any> {
     return this.http
-      .post<LoginDetails>('http://localhost:3000/login', obj)
+      .post<LoginDetails>(userURLs.Login, obj)
       .pipe(catchError(this.httpErrorHandler));
   }
 
   signup(obj: SignUpDetails): Observable<any> {
     return this.http
-      .post<SignUpDetails>('http://localhost:3000/signup', obj)
+      .post<SignUpDetails>(userURLs.SignUp, obj)
       .pipe(catchError(this.httpErrorHandler));
   }
 
   resetPassword(obj: any): Observable<any> {
     return this.http
-      .post<any>('http://localhost:3000/resetPassword', obj)
+      .post<any>(userURLs.ResetPassword, obj)
       .pipe(catchError(this.httpErrorHandler));
   }
 
   verifyUser(url: string): Observable<{ message: string }> {
-    return this.http.get<any>('http://localhost:3000/' + url);
+    return this.http.get<any>( '/' + url);
   }
 
   //Products Page--------------------------------------------------------------------------------------------------------------
   getCategoriesAndSubCategories(): Observable<{ data: CatandSubCat[] }> {
     return this.http
       .get<any>(
-        'http://localhost:3000/user/products/getCategoriesAndSubCategories'
+        userURLs.CategoriesAndSubCategories
       )
       .pipe(catchError(this.httpErrorHandler));
   }
@@ -62,7 +65,7 @@ export class DataService {
   getCategoryProducts(category: string, page: number): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
-        'http://localhost:3000/user/products/getProducts/category/' +
+        userURLs.CategoryProducts +
         category +
         '/' +
         page
@@ -73,7 +76,7 @@ export class DataService {
   getFilteredProducts(filteredProducts: string, page: number): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
-        'http://localhost:3000/user/products/getProducts/subCategories/' +
+        userURLs.SubCategoryProducts +
         filteredProducts +
         '/' +
         page
@@ -84,7 +87,7 @@ export class DataService {
   getSearchedProducts(search: string, page: number): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
-        'http://localhost:3000/user/products/getProducts/search/' +
+        userURLs.SearchProducts +
         search +
         '/' +
         page
@@ -93,14 +96,14 @@ export class DataService {
   }
 
   getCartDetails(): Observable<Cart[]> {
-    return this.http.get<any>('http://localhost:3000/user/details/cart').pipe(
+    return this.http.get<any>(userURLs.Cart).pipe(
       catchError(this.httpErrorHandler),
       map((result) => result.data.cart)
     );
   }
 
   updateCartDetails(cart: Array<any>): Observable<any> {
-    return this.http.post('http://localhost:3000/user/details/updateCart', {
+    return this.http.post(userURLs.UpdateCart, {
       cart,
     });
   }
@@ -115,7 +118,7 @@ export class DataService {
 
   getUserDetails() {
     this.http
-      .get('http://localhost:3000/user/details/profileDetails')
+      .get(userURLs.UserDetails)
       .subscribe({
         next: (result) => {
           this.updateUserDetails(result as UserDetails);
@@ -127,7 +130,7 @@ export class DataService {
     // console.log(obj)
     this.updateUserDetails(obj);
     return this.http
-      .post('http://localhost:3000/user/details/updateProfile', obj)
+      .post(userURLs.UpdateUserDetails, obj)
       .subscribe({
         next: (result) => {
           // console.log(result)
@@ -137,37 +140,37 @@ export class DataService {
 
   uploadProfileImage(obj: FormData) {
     return this.http
-      .post('http://localhost:3000/user/details/profileUpload', obj)
+      .post(userURLs.UploadProfileImage, obj)
       .pipe(catchError(this.httpErrorHandler));
   }
 
   getOrderDetails(): Observable<{ message: Order[] }> {
-    return this.http.get<any>("http://localhost:3000/user/orders/getOrders")
+    return this.http.get<any>(userURLs.Orders)
       .pipe(catchError(this.httpErrorHandler));
   }
 
   getAddresses(): Observable<{ message: Address[] }> {
-    return this.http.get<any>("http://localhost:3000/user/details/getAddresses")
+    return this.http.get<any>(userURLs.Addresses)
       .pipe(catchError(this.httpErrorHandler));
   }
 
   deleteAddress(id: string): Observable<any> {
-    return this.http.put<any>("http://localhost:3000/user/details/deleteAddress", { id }).pipe(catchError(this.httpErrorHandler))
+    return this.http.put<any>(userURLs.DeleteAddress, { id }).pipe(catchError(this.httpErrorHandler))
   }
 
   addAddress(obj: any): Observable<any> {
-    return this.http.post<any>("http://localhost:3000/user/details/updateAddress", { address: obj }).pipe(catchError(this.httpErrorHandler))
+    return this.http.post<any>(userURLs.UpdateAddress, { address: obj }).pipe(catchError(this.httpErrorHandler))
   }
 
   getChatMessages(email: string): Observable<{ messages: Message[] }> {
-    return this.http.get<any>("http://localhost:3000/user/details/getMessages/" + email).pipe(catchError(this.httpErrorHandler))
+    return this.http.get<any>(userURLs.Messages + email).pipe(catchError(this.httpErrorHandler))
   }
 
   sendChatMessage(data: any): Observable<any> {
-    return this.http.post<any>("http://localhost:3000/user/details/sendMessage", data).pipe(catchError(this.httpErrorHandler))
+    return this.http.post<any>(userURLs.SendMessage, data).pipe(catchError(this.httpErrorHandler))
   }
 
   placeOrder(data: any): Observable<any> {
-    return this.http.post<any>("http://localhost:3000/user/orders/addOrders", data).pipe(catchError(this.httpErrorHandler))
+    return this.http.post<any>(userURLs.PlaceOrder, data).pipe(catchError(this.httpErrorHandler))
   }
 }

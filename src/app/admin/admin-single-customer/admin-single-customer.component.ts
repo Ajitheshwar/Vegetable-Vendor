@@ -16,15 +16,15 @@ export class AdminSingleCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     let id = this.ar.snapshot.params['id']
-    console.log(id)
+    // console.log(id)
     this.data.getCustomerDetails(id).subscribe({
       next: (result) => {
-        console.log(result.data)
+        // console.log(result.data)
         this.customerDetails = result.data
         this.loadedCustomerDetails = true;
         this.data.getAdminChatMessages(result.data.email_address).subscribe({
           next: (result) => {
-            console.log(result)
+            // console.log(result)
             this.loadedChatMessages = true;
             this.chatMessages = result.messages
           }
@@ -79,7 +79,7 @@ export class AdminSingleCustomerComponent implements OnInit {
   getOrderDetails(id: string) {
     this.data.getOrderDetails(id).subscribe({
       next: (result) => {
-        console.log(result.data)
+        // console.log(result.data)
         this.orderDetails = result.data
         this.loadedOrderDetails = true
       },
@@ -98,7 +98,7 @@ export class AdminSingleCustomerComponent implements OnInit {
     this.chatMessages.push(data)
     this.data.sendAdminChatMessage(data).subscribe({
       next: (result) => {
-        console.log(result)
+        // console.log(result)
         ref.reset()
       },
       error: console.log

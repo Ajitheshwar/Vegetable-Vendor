@@ -3,6 +3,7 @@ import {
   AbstractControl,
   FormArray,
   FormBuilder,
+  FormControl,
   NgForm,
   ValidationErrors,
   Validators,
@@ -43,7 +44,7 @@ export class AdminProductsComponent implements OnInit {
   ): ValidationErrors | null {
     let costPrice = control.get('costPrice')?.value;
     let sellingPrice = control.get('sellingPrice')?.value;
-    return costPrice && sellingPrice && costPrice > sellingPrice
+    return costPrice && sellingPrice && costPrice >= sellingPrice
       ? {
           costPrice,
           sellingPrice,
@@ -62,15 +63,60 @@ export class AdminProductsComponent implements OnInit {
       category: ['', Validators.required],
       subCategory: ['', Validators.required],
       description: ['', Validators.required],
-      benefits: this.fb.array([]),
-      costPrice: [0, [Validators.required, Validators.min(0)]],
-      sellingPrice: [0, [Validators.required, Validators.min(0)]],
-      productImage: [],
+      benefits: this.fb.array([], [Validators.required, Validators.minLength(3)]),
+      costPrice: [0, [Validators.required, Validators.min(1)]],
+      sellingPrice: [0, [Validators.required, Validators.min(1)]],
+      productImage: [null, Validators.required],
       numberOfDays: [-1, Validators.required],
     },
     { validators: this.validateCostPriceAndSellingPrice }
   );
 
+  get name(){
+    return this.newProduct.get('name') as FormControl
+  }
+
+  get category(){
+    return this.newProduct.get('category') as FormControl
+  }
+
+  get subCategory(){
+    return this.newProduct.get('subCategory') as FormControl
+  }
+
+  get description(){
+    return this.newProduct.get('description') as FormControl
+  }
+
+  get costPrice(){
+    return this.newProduct.get('costPrice') as FormControl
+  }
+
+  get sellingPrice(){
+    return this.newProduct.get('sellingPrice') as FormControl
+  }
+
+  get productImage(){
+    return this.newProduct.get('productImage') as FormControl
+  }
+
+  get numberOfDays(){
+    return this.newProduct.get('numberOfDays') as FormControl
+  }
+
+  get benefits() {
+    return this.newProduct.get('benefits') as FormArray;
+  }
+
+  addNewBenefit() {
+    this.benefits.push(this.fb.control(''));
+  }
+
+  deleteBenefit(index: number) {
+    this.benefits.removeAt(index);
+  }
+
+  
   productUpdateImage = this.fb.group({
     id : [''],
     name : [''],
@@ -117,7 +163,9 @@ export class AdminProductsComponent implements OnInit {
     formData.append("productImage",obj.productImage)
 
     this.data.updateProductImage(formData).subscribe({
-      next : console.log,
+      next : (result)=>{
+        alert("Updated Product Image Successfully")
+      },
       error : console.log
     })
   }
@@ -135,18 +183,6 @@ export class AdminProductsComponent implements OnInit {
         });
       }
     }
-  }
-
-  get benefits() {
-    return this.newProduct.get('benefits') as FormArray;
-  }
-
-  addNewBenefit() {
-    this.benefits.push(this.fb.control(''));
-  }
-
-  deleteBenefit(index: number) {
-    this.benefits.removeAt(index);
   }
 
   previewImageUser(event: any) {
@@ -173,7 +209,9 @@ export class AdminProductsComponent implements OnInit {
       formData.append(key, value[key]);
     }
     this.data.addProduct(formData).subscribe({
-      next: console.log,
+      next: (result)=>{
+        alert(result.message)
+      },
       error: console.log,
     });
   }
@@ -186,11 +224,11 @@ export class AdminProductsComponent implements OnInit {
           quantity: [0, [Validators.min(0), Validators.required]],
           costPrice: [
             product.costPrice,
-            [Validators.min(0), Validators.required],
+            [Validators.min(1), Validators.required],
           ],
           sellingPrice: [
             product.sellingPrice,
-            [Validators.min(0), Validators.required],
+            [Validators.min(1), Validators.required],
           ],
         },
         { validators: this.validateCostPriceAndSellingPrice }
@@ -219,6 +257,7 @@ export class AdminProductsComponent implements OnInit {
     }
     this.data.updateProductTodayData(updateDetails).subscribe({
       next: (result) => {
+        // console.log(result)
         alert(result.message);
         this.products = this.totalProducts = result.data;
       },

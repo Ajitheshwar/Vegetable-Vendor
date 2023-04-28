@@ -6,29 +6,14 @@
     </span>
     Filters
   </button>
-  <button
-    class="btn btn-success my-3"
-    data-bs-toggle="modal"
-    data-bs-target="#produtsOrderModal"
-  >
+  <button class="btn btn-success my-3" data-bs-toggle="modal" data-bs-target="#produtsOrderModal">
     Order Products
   </button>
-  <button
-    class="btn btn-outline-info m-3 position-relative"
-    data-bs-toggle="modal"
-    data-bs-target="#notificationModal"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="currentColor"
-      class="bi bi-bell-fill"
-      viewBox="0 0 16 16"
-    >
+  <button class="btn btn-outline-info m-3 position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill"
+      viewBox="0 0 16 16">
       <path
-        d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"
-      />
+        d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
     </svg>
     <span class="notification-count">{{ notifications.length }}</span>
   </button>
@@ -42,22 +27,13 @@
             <h4 class="text-center">{{ category.category }}</h4>
             <hr />
             <div class="row mx-0">
-              <div
-                class="col-12 col-lg-6"
-                *ngFor="let subCategory of category.subCategories"
-              >
+              <div class="col-12 col-lg-6" *ngFor="let subCategory of category.subCategories">
                 <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    [name]="subCategory"
-                    [value]="subCategory"
-                    [id]="subCategory"
-                    ngModel
-                  />
+                  <input type="checkbox" class="form-check-input" [name]="subCategory" [value]="subCategory"
+                    [id]="subCategory" ngModel />
                   <label [for]="subCategory" class="form-check-label">{{
                     subCategory
-                  }}</label>
+                    }}</label>
                 </div>
               </div>
             </div>
@@ -91,18 +67,10 @@
   <div class="col-sm-1 col-md-2 col-lg-3"></div>
 </div>
 <div class="d-flex justify-content-between">
-  <button
-    class="btn btn-primary mx-3"
-    data-bs-toggle="modal"
-    data-bs-target="#addProductModal"
-  >
+  <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#addProductModal">
     Add Product
   </button>
-  <button
-    class="btn btn-primary me-3"
-    (click)="showAndHideMoreData()"
-    [ngSwitch]="showMoreData"
-  >
+  <button class="btn btn-primary me-3" (click)="showAndHideMoreData()" [ngSwitch]="showMoreData">
     <span *ngSwitchCase="true">Show Less</span>
     <span *ngSwitchCase="false">Show More</span>
   </button>
@@ -129,29 +97,19 @@
         <tr *ngFor="let product of products; index as i">
           <td>{{ i + 1 }}</td>
           <td>
-            <button
-              class="btn"
-              data-bs-toggle="modal"
-              data-bs-target="#updateImageModal"
-              (click)="
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#updateImageModal" (click)="
                 updateProductImageDetails(
                   product.image,
                   product.name,
                   product._id
                 )
-              "
-            >
+              ">
               <img [src]="product.image" style="width: 50px; height: 50px" />
             </button>
           </td>
           <td *ngIf="editProductIndex !== i">{{ product.name }}</td>
           <td *ngIf="editProductIndex === i">
-            <input
-              type="text"
-              name="name"
-              class="form-control"
-              [ngModel]="product.name"
-            />
+            <input type="text" name="name" class="form-control" [ngModel]="product.name" />
           </td>
           <td class="text-center">&#8377;{{ product.costPrice }}</td>
           <td class="text-center">&#8377;{{ product.sellingPrice }}</td>
@@ -172,95 +130,46 @@
             <td>{{ product.subCategory }}</td>
 
             <td class="text-center" colspan="2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                (click)="editProducts(i)"
-                fill="currentColor"
-                class="bi bi-pencil-square edit-button"
-                viewBox="0 0 16 16"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" (click)="editProducts(i)" fill="currentColor"
+                class="bi bi-pencil-square edit-button" viewBox="0 0 16 16">
                 <path
-                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-                />
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
               </svg>
             </td>
           </ng-container>
           <ng-container *ngIf="editProductIndex === i">
             <td *ngIf="showMoreData">
-              <textarea
-                type="text"
-                class="form-control"
-                name="description"
-                rows="5"
-                [ngModel]="product.description"
-              ></textarea>
+              <textarea type="text" class="form-control" name="description" rows="5"
+                [ngModel]="product.description"></textarea>
             </td>
             <td *ngIf="showMoreData">
-              <textarea
-                type="text"
-                class="form-control"
-                name="benefits"
-                placeholder="Enter benefits using :: as separator"
-                rows="5"
-                [ngModel]="product.benefits.join('::')"
-              >
+              <textarea type="text" class="form-control" name="benefits"
+                placeholder="Enter benefits using :: as separator" rows="5" [ngModel]="product.benefits.join('::')">
               </textarea>
             </td>
             <td>
-              <input
-                type="text"
-                name="category"
-                [ngModel]="product.category"
-                class="form-control"
-              />
+              <input type="text" name="category" [ngModel]="product.category" class="form-control" />
             </td>
             <td>
-              <input
-                type="text"
-                name="subCategory"
-                [ngModel]="product.subCategory"
-                class="form-control"
-              />
+              <input type="text" name="subCategory" [ngModel]="product.subCategory" class="form-control" />
             </td>
             <td>
-              <button
-                class="btn btn-success py-1 px-1"
-                (click)="updateProduct(productUpdate)"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="bi bi-check2"
-                  viewBox="0 0 16 16"
-                >
+              <button class="btn btn-success py-1 px-1" (click)="updateProduct(productUpdate)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2"
+                  viewBox="0 0 16 16">
                   <path
-                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
-                  />
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                 </svg>
               </button>
             </td>
             <td>
-              <button
-                class="btn btn-danger py-1 px-1"
-                (click)="editProductIndex = -1"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="bi bi-x-lg"
-                  viewBox="0 0 16 16"
-                >
+              <button class="btn btn-danger py-1 px-1" (click)="editProductIndex = -1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg"
+                  viewBox="0 0 16 16">
                   <path
-                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
-                  />
+                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
                 </svg>
               </button>
             </td>
@@ -272,42 +181,26 @@
 </div>
 
 <!-- Notification Modal -->
-<div
-  class="modal fade"
-  id="notificationModal"
-  tabindex="-1"
-  aria-labelledby="notificationModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="notificationModalLabel">
           Notifications
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div
-          *ngFor="let notification of notifications"
-          class="p-3 m-2 border border-dark rounded-3 d-flex justify-content-between"
-        >
+        <div *ngFor="let notification of notifications"
+          class="p-3 m-2 border border-dark rounded-3 d-flex justify-content-between">
           <div>
             <h6 class="mb-1">{{ notification.name }}</h6>
-            <span style="font-size: 12px"
-              >{{ notification.category }} {{ notification.subCategory }}</span
-            >
+            <span style="font-size: 12px">{{ notification.category }} {{ notification.subCategory }}</span>
           </div>
           <div class="d-flex align-items-center">
-            <span
-              >{{ notification.quantity }}
-              <span style="font-size: 12px">KG</span></span
-            >
+            <span>{{ notification.quantity }}
+              <span style="font-size: 12px">KG</span></span>
           </div>
         </div>
       </div>
@@ -315,60 +208,31 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="produtsOrderModal"
-  tabindex="-1"
-  aria-labelledby="produtsOrderModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="produtsOrderModal" tabindex="-1" aria-labelledby="produtsOrderModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="produtsOrderModalLabel">
           Order Products
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
               <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-              />
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
             </svg>
           </span>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search Product"
-            [(ngModel)]="search"
-          />
+          <input type="text" class="form-control" placeholder="Search Product" [(ngModel)]="search" />
         </div>
-        <form
-          [formGroup]="orderProducts"
-          (ngSubmit)="orderProducts.valid && updateOrderProductsInDB()"
-        >
+        <form [formGroup]="orderProducts" (ngSubmit)="orderProducts.valid && updateOrderProductsInDB()">
           <div formArrayName="products">
-            <div
-              *ngFor="let product of totalProducts; index as i"
-              class="row"
-              [formGroupName]="i"
-            >
-              <ng-container *ngIf="product.name.includes(search)">
+            <div *ngFor="let product of totalProducts; index as i" class="row" [formGroupName]="i">
+              <ng-container *ngIf="product.name.toUpperCase().includes(search.toUpperCase())">
                 <div class="col-12 col-lg-3 mb-3 d-flex align-items-end">
                   <label for="product{{ product.name }}" class="form-label">
                     {{ product.name }}
@@ -377,11 +241,7 @@
                 <div class="col-4 col-lg-3 mb-3">
                   <div class="input-group">
                     <div class="form-floating">
-                      <input
-                        type="number"
-                        class="form-control"
-                        formControlName="quantity"
-                      />
+                      <input type="number" class="form-control" formControlName="quantity" />
                       <label> Quantity </label>
                     </div>
                     <span class="input-group-text">KG</span>
@@ -391,11 +251,7 @@
                   <div class="input-group">
                     <span class="input-group-text">&#8377;</span>
                     <div class="form-floating">
-                      <input
-                        type="number"
-                        class="form-control"
-                        formControlName="costPrice"
-                      />
+                      <input type="number" class="form-control" formControlName="costPrice" />
                       <label>Cost Price</label>
                     </div>
                   </div>
@@ -404,20 +260,18 @@
                   <div class="input-group">
                     <span class="input-group-text">&#8377;</span>
                     <div class="form-floating">
-                      <input
-                        type="number"
-                        class="form-control"
-                        formControlName="sellingPrice"
-                      />
+                      <input type="number" class="form-control" formControlName="sellingPrice" />
                       <label>Selling Price</label>
                     </div>
                   </div>
                 </div>
-                <div
-                  class="col-12 text-danger text-center mb-3"
-                  *ngIf="getProductAtIndex(i).invalid"
-                >
-                  All values of {{ product.name }} are required
+                <div class="col-12 text-danger text-center mb-3" *ngIf="getProductAtIndex(i).invalid">
+                  <p *ngIf="getProductAtIndex(i).errors else default" class="text-danger">
+                    Selling Price of a product must be greater than Cost Price
+                  </p>
+                  <ng-template #default>
+                    All values of {{ product.name }} are required 
+                  </ng-template>
                 </div>
               </ng-container>
             </div>
@@ -432,74 +286,58 @@
 </div>
 
 <!--Add Product Modal-->
-<div
-  class="modal"
-  id="addProductModal"
-  aria-labelledby="addProductModalLabel"
-  tabindex="-1"
->
+<div class="modal" id="addProductModal" aria-labelledby="addProductModalLabel" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="newProduct">
+      <form #newProductForm="ngForm" [formGroup]="newProduct" (ngSubmit)="newProduct.valid &&  addProduct()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
           <div class="mb-3">
             <label for="name" class="form-label">Product Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="form-control"
-              formControlName="name"
-            />
+            <input type="text" name="name" id="name" class="form-control" formControlName="name" />
+            <p *ngIf="(newProductForm.submitted || name.touched) && name.invalid" class="text-danger"> *Product Name is
+              required</p>
           </div>
           <div class="mb-3">
             <label for="category" class="form-label"> Category </label>
-            <select
-              type="text"
-              name="category"
-              class="form-control"
-              formControlName="category"
-            >
+            <select type="text" name="category" class="form-control" formControlName="category">
               <option value="Vegetable">Vegetable</option>
               <option value="Fruit">Fruit</option>
               <option value="Dry Fruits">Dry Fruits</option>
             </select>
+            <p *ngIf="(newProductForm.submitted || category.touched) && category.invalid" class="text-danger"> *Category
+              of product is required</p>
           </div>
           <div class="mb-3">
             <label for="subCategory" class="form-label"> Sub-Category </label>
-            <input
-              type="text"
-              name="subCategory"
-              class="form-control"
-              formControlName="subCategory"
-            />
+            <input type="text" name="subCategory" class="form-control" formControlName="subCategory" />
+            <p *ngIf="(newProductForm.submitted || subCategory.touched) && subCategory.invalid" class="text-danger">
+              *subCategory of product is required</p>
           </div>
           <div class="mb-3">
             <label for="costPrice" class="form-label"> Cost Price </label>
-            <input
-              type="number"
-              name="costPrice"
-              class="form-control"
-              formControlName="costPrice"
-            />
+            <input type="number" name="costPrice" class="form-control" formControlName="costPrice" />
+            <p *ngIf="(newProductForm.submitted || costPrice.touched) && costPrice.errors?.['required']"
+              class="text-danger"> *Cost
+              Price of product is required</p>
+            <p *ngIf="(newProductForm.submitted || costPrice.touched) && costPrice.errors?.['min']" class="text-danger">
+              *Cost
+              Price of product should be greater than &#8377;0</p>
           </div>
           <div class="mb-3">
             <label for="sellingPrice" class="form-label"> Selling Price </label>
-            <input
-              type="number"
-              class="form-control"
-              name="sellingPrice"
-              formControlName="sellingPrice"
-            />
+            <input type="number" class="form-control" name="sellingPrice" formControlName="sellingPrice" />
+            <p *ngIf="(newProductForm.submitted || sellingPrice.touched) && sellingPrice.errors?.['required']"
+              class="text-danger">
+              *Selling Price of product is required</p>
+            <p *ngIf="(newProductForm.submitted || sellingPrice.touched) && sellingPrice.errors?.['min']"
+              class="text-danger">
+              *Selling Price of product should be greater than &#8377;0</p>
+            <p *ngIf="(newProductForm.submitted || (costPrice.touched && sellingPrice.touched)) && newProduct.errors"
+              class="text-danger"> *Selling Price must be greater than Cost Price</p>
           </div>
           <div class="mb-3">
             <label for="numberOfDays" class="form-label">
@@ -508,59 +346,37 @@
             <p class="text-muted" style="font-size: 12px">
               Select -1 for large expiry products
             </p>
-            <input
-              type="number"
-              class="form-control"
-              name="numberOfDays"
-              formControlName="numberOfDays"
-            />
+            <input type="number" class="form-control" name="numberOfDays" formControlName="numberOfDays" />
+            <p *ngIf="(newProductForm.submitted || numberOfDays.touched) && numberOfDays.invalid" class="text-danger">
+              *Expiry of product is required</p>
           </div>
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea
-              name="description"
-              id="description"
-              cols="30"
-              rows="3"
-              class="form-control"
-              formControlName="description"
-            ></textarea>
+            <textarea name="description" id="description" cols="30" rows="3" class="form-control"
+              formControlName="description"></textarea>
+            <p *ngIf="(newProductForm.submitted || description.touched) && description.invalid" class="text-danger">
+              *Description of product is required</p>
           </div>
           <div class="mb-3">
             <label for="benefits" class="form-label w-100">
               Benefits
-              <button class="btn btn-light float-end" (click)="addNewBenefit()">
+              <a class="btn btn-light float-end" (click)="addNewBenefit()">
                 + Benefit
-              </button>
+              </a>
             </label>
             <div formArrayName="benefits">
-              <div
-                *ngFor="let benefit of benefits.controls; let i = index"
-                class="d-flex"
-              >
-                <input
-                  type="text"
-                  class="form-control mb-3"
-                  [formControlName]="i"
-                />
-                <button
-                  class="btn btn-outline-danger ms-2 mb-3"
-                  (click)="deleteBenefit(i)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-trash3"
-                    viewBox="0 0 16 16"
-                  >
+              <div *ngFor="let benefit of benefits.controls; let i = index" class="d-flex">
+                <input type="text" class="form-control mb-3" [formControlName]="i" />
+                <button class="btn btn-outline-danger ms-2 mb-3" (click)="deleteBenefit(i)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash3" viewBox="0 0 16 16">
                     <path
-                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
-                    />
+                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                   </svg>
                 </button>
               </div>
+              <p *ngIf="(newProductForm.submitted) && benefits.invalid" class="text-danger"> *Add
+                atleast 3 benefits of product</p>
             </div>
             <div class="profile-image-box">
               <img src="" #previewImageContainer />
@@ -568,74 +384,48 @@
             <label for="productImage" class="profile-preview-label" (click)="addProductImage.click()">
               Upload Image
             </label>
-            <input
-              type="file"
-              name="productImage"
-              class="productImage"
-              accept="image/*"
-              #addProductImage
-              (change)="previewImageUser($event)"
-            />
+            <input type="file" name="productImage" class="productImage" accept="image/*" #addProductImage
+              (change)="previewImageUser($event)" />
+            <p *ngIf="(newProductForm.submitted || productImage.touched) && productImage.invalid" class="text-danger">
+              *Image of product is required</p>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addProduct()">
-          Add Product
-        </button>
-      </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">
+            Add Product
+          </button>
+
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <!--Update Product Image-->
-<div
-  class="modal fade"
-  id="updateImageModal"
-  tabindex="-1"
-  aria-labelledby="updateImageModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="updateImageModal" tabindex="-1" aria-labelledby="updateImageModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="updateImageModalLabel">
           Update Product Image
         </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="d-flex">
           <span class="mx-3 d-inline-block pt-2">Product: </span>
-          <input
-            class="form-control"
-            [value]="productUpdateImage.get('name')?.value"
-            readonly
-          />
+          <input class="form-control" [value]="productUpdateImage.get('name')?.value" readonly />
         </div>
         <form [formGroup]="productUpdateImage">
           <div class="profile-image-box">
-            <img
-              [src]="productUpdateImage.get('image')?.value"
-              class="profile-image-box"
-            />
+            <img [src]="productUpdateImage.get('image')?.value" class="profile-image-box" />
           </div>
           <label for="productImage" class="profile-preview-label" (click)="updateProductImageInput.click()">
             Upload Image
           </label>
-          <input
-            type="file"
-            name="productImage"
-            class="productImage"
-            accept="image/*"
-            #updateProductImageInput
-            (change)="updateProductImagePhoto($event)"
-          />
+          <input type="file" name="productImage" class="productImage" accept="image/*" #updateProductImageInput
+            (change)="updateProductImagePhoto($event)" />
         </form>
       </div>
       <div class="modal-footer">
