@@ -6,6 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NumberFormatPipe implements PipeTransform {
 
   transform(number: number): string {
+    let sign = true;
+    if(number < 0){
+      sign = false;
+      number = -number
+    }
     let a = []
     let x = number%1000
     let y = x.toString()
@@ -22,6 +27,7 @@ export class NumberFormatPipe implements PipeTransform {
     }
     let result = a.join(',')
     if(result[0]=='0') result = result.substring(1)
+    if(!sign) result = '-'+result
     return result
   }
 

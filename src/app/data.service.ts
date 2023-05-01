@@ -28,8 +28,6 @@ export class DataService {
     });
   }
 
-  baseUrl = "http://localhost:3000"
-
   //Login Page-----------------------------------------------------------------------------------------------------------------
   login(obj: LoginDetails): Observable<any> {
     return this.http

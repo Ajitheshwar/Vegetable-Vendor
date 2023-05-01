@@ -12,6 +12,11 @@ const resetPasswordRouter = require("./routes/resetPassword")
 const userAPIRoute = require("./routes/user/user");
 const adminRouter = require("./routes/admin/admin")
 
+const {addTodayData} = require("./controllers/admin/dailyEachProduct")
+const {middlewareCreate} = require("./controllers/admin/dailyDashboard")
+const updateStock = require("./middleware")
+const Admin = require("./models/admin")
+
 const DBUsername = process.env.DBUsername;
 const DBPassword = process.env.DBPassword;
 
@@ -28,6 +33,22 @@ mongoose
   });
 
 app.use(cors());
+app.use(async (req,res,next)=>{
+  let a = new Date()
+  let today = new Date(a.getFullYear(), a.getMonth(), a.getDate())
+  // console.log(today)
+  let date = await Admin.findOne({},"modifiedStockAt")
+  //console.log(date)
+  if(date.modifiedStockAt < today){
+      console.log("Hello Admin")
+      let updateStockResult = await updateStock()
+      let addTodayDataResult = await addTodayData(updateStockResult)
+      let middlewareCreateResult = await middlewareCreate(addTodayDataResult.productList, addTodayDataResult.totalLoss)
+      let updateAdminModifiedStock = await Admin.updateOne({},{modifiedStockAt : today})
+  }
+
+  next()
+})
 
 app.get("/", (req, res) => {
   res.send("Hello world");

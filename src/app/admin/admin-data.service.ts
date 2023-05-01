@@ -18,8 +18,6 @@ export class AdminDataService {
     });
   }
 
-  baseURL = 'http://localhost:3000'
-
   //Products
   getCategoriesAndSubCategories(): Observable<{ data: CatandSubCat[] }> {
     return this.http.get<any>(adminURLs.CategoriesndSubCategories ).pipe(catchError(this.httpErrorHandler))
@@ -52,7 +50,7 @@ export class AdminDataService {
   }
 
   getCustomersBySearch(searchBy: string, search: string, page: number): Observable<{ maxPages: number, data: AdminUserDetails[] }> {
-    return this.http.get<any>(`${this.baseURL}${adminURLs.Customers}?${searchBy}=${search}&page=${page}`).pipe(catchError(this.httpErrorHandler))
+    return this.http.get<any>(`${adminURLs.Customers}?${searchBy}=${search}&page=${page}`).pipe(catchError(this.httpErrorHandler))
   }
 
   getCustomerDetails(id: string): Observable<{ data: AdminSingleUserDetails }> {
