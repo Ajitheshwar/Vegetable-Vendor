@@ -94,9 +94,21 @@ export class DashboardProductComponent implements OnInit {
   }
   updateGraphResults(){
     this.graphDetails = []
-    for(let day of this.productDashboardDetails){
+    for(let i=0;i<this.productDashboardDetails.length; i++){
+      let day = this.productDashboardDetails[i]
+      let dateArray = day.date.split("T")[0].split("-").reverse()
+      
+      if(i==0){
+        dateArray[0] = '1'
+        dateArray[1] = String((Number(dateArray[1]) + 1)%12)
+      }else{
+        dateArray[0] = String(Number(dateArray[0]) + 1)
+        dateArray[1] = String(Number(dateArray[1]))
+      }
+      
+      let date : string= dateArray.join('-')
       let obj = {
-        name : day.date.split("T")[0].split("-").reverse().join("-"),
+        name : date,
         series : [
           {
             name : "Profit",

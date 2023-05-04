@@ -102,7 +102,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let product of productDashboardDetails">
-            <td>{{ product.date | date : 'dd/MM/yyyy hh:mm aa' }}</td>
+            <td>{{ product.date | date : 'dd/MM/yyyy' }}</td>
             <td>&#8377;{{product.costPrice}}</td>
             <td>&#8377;{{product.sellingPrice}}</td>
             <td>{{product.quantity}}KG</td>

@@ -265,13 +265,14 @@
                     </div>
                   </div>
                 </div>
+                <!-- {{getProductAtIndex(i).errors | json}} -->
                 <div class="col-12 text-danger text-center mb-3" *ngIf="getProductAtIndex(i).invalid">
-                  <p *ngIf="getProductAtIndex(i).errors else default" class="text-danger">
+                  <p *ngIf="getProductAtIndex(i).errors?.['costPrice']" class="text-danger">
                     Selling Price of a product must be greater than Cost Price
                   </p>
-                  <ng-template #default>
-                    All values of {{ product.name }} are required 
-                  </ng-template>
+                  <p *ngIf="getProductAtIndex(i).get('quantity')?.errors">*Quantity must be greater than 0</p>
+                  <p *ngIf="getProductAtIndex(i).get('costPrice')?.errors">*Cost Price must be greater than 0</p>
+                  <p *ngIf="getProductAtIndex(i).get('sellingPrice')?.errors">*Selling Price must be greater than 0</p>
                 </div>
               </ng-container>
             </div>
@@ -344,11 +345,12 @@
               Expiry of Product
             </label>
             <p class="text-muted" style="font-size: 12px">
-              Select -1 for large expiry products
+              Select -1 for large expiry products (more than 15 days)
             </p>
             <input type="number" class="form-control" name="numberOfDays" formControlName="numberOfDays" />
             <p *ngIf="(newProductForm.submitted || numberOfDays.touched) && numberOfDays.invalid" class="text-danger">
-              *Expiry of product is required</p>
+              *Expiry of products must be greater than <b>0</b> days and select -1 for products whose expiry is more than 15 days 
+            </p>
           </div>
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
@@ -392,7 +394,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" [disabled]="newProduct.invalid">
             Add Product
           </button>
 

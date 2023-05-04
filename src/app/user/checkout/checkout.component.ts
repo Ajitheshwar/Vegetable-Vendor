@@ -102,7 +102,7 @@ export class CheckoutComponent implements OnInit{
         setTimeout(()=>{
           if(placeOrderBox){
             placeOrderBox.style.display = 'none'
-            // this.router.navigateByUrl("/user/products")
+            this.router.navigateByUrl("/user/products")
           }
         },6000)
         setTimeout(()=>{

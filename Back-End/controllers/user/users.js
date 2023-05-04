@@ -134,13 +134,13 @@ const getCart = async (req, res) => {
 
 const updateCart = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     let cart = req.body.cart;
 
     let objectId = new mongoose.Types.ObjectId(req.headers.id);
     Users.updateOne({ _id: objectId }, { cart: cart })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         res.status(200).send({ message: "Updated Successfully" });
       })
       .catch((error) => {

@@ -111,15 +111,28 @@ export class DashboardComponent implements OnInit {
   }
 
   updateDashboardDetailsOfMonth(data : MonthDashboard[]){
+    // console.log(data)
     let profits = [], losses = []
-    for (let day of data) {
+    for (let i=0;i<data.length; i++) {
+      let dateArray = data[i].date.split("T")[0].split("-").reverse()
+      // console.log(dateArray)
+      if(i==0){
+        dateArray[0] = '1'
+        dateArray[1] = String((Number(dateArray[1]) + 1)%12)
+      }else{
+        dateArray[0] = String(Number(dateArray[0]) + 1)
+        dateArray[1] = String(Number(dateArray[1]))
+      }
+      // console.log(dateArray)
+      let date : string= dateArray.join('-')
+      // console.log(date)
       losses.push({
-        name: day.date.split("T")[0].split("-").reverse().join("-"),
-        value: day.loss
+        name: date,
+        value: data[i].loss
       });
       profits.push({
-        name: day.date.split("T")[0].split("-").reverse().join("-"),
-        value: day.profit
+        name: date,
+        value: data[i].profit
       });
     }
     this.dashboardDetailsOfMonth = [

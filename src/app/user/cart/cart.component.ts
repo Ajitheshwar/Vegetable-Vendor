@@ -36,7 +36,7 @@ export class CartComponent implements OnInit {
     this.calculateTotalCost()
     this.data.updateCartDetails(this.cart).subscribe({
       next : (result)=>{
-        console.log(result)
+        // console.log(result)
       }
     })
   }

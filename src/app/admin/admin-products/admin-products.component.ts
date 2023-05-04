@@ -67,10 +67,16 @@ export class AdminProductsComponent implements OnInit {
       costPrice: [0, [Validators.required, Validators.min(1)]],
       sellingPrice: [0, [Validators.required, Validators.min(1)]],
       productImage: [null, Validators.required],
-      numberOfDays: [-1, Validators.required],
+      numberOfDays: [-1, this.validateNumberOfDays],
     },
     { validators: this.validateCostPriceAndSellingPrice }
   );
+
+  validateNumberOfDays( control : AbstractControl) : ValidationErrors | null {
+    let value : number = control.value
+    if(value > 15 || value == 0 || value <-1) return {invaid : true }
+    return null
+  }
 
   get name(){
     return this.newProduct.get('name') as FormControl
@@ -109,7 +115,7 @@ export class AdminProductsComponent implements OnInit {
   }
 
   addNewBenefit() {
-    this.benefits.push(this.fb.control(''));
+    this.benefits.push(this.fb.control('',Validators.required));
   }
 
   deleteBenefit(index: number) {
