@@ -95,6 +95,7 @@
       </thead>
       <tbody *ngIf="loadedProducts">
         <tr *ngFor="let product of products; index as i">
+          <!-- {{product | json}} -->
           <td>{{ i + 1 }}</td>
           <td>
             <button class="btn" data-bs-toggle="modal" data-bs-target="#updateImageModal" (click)="

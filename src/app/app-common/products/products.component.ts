@@ -53,7 +53,7 @@ export class ProductsComponent implements OnInit {
           //console.log(productName)
           this.applySearchFilter()
           this.timerId = undefined
-      },1000)
+      },500)
   }
 
   loadProductsData(page:number){
@@ -106,7 +106,8 @@ export class ProductsComponent implements OnInit {
         this.maxPages = result.total_pages
         this.page = page;
         this.loadedProductsData = true
-      }
+      },
+      error : console.log
     })
   }
 
@@ -120,7 +121,8 @@ export class ProductsComponent implements OnInit {
         this.maxPages = result.total_pages
         this.page = page;
         this.loadedProductsData = true;
-      }
+      },
+      error : console.log
     })
   }
 
@@ -131,7 +133,8 @@ export class ProductsComponent implements OnInit {
         this.maxPages = result.total_pages
         this.page = page
         this.loadedProductsData = true
-      }
+      },
+      error : console.log
     })
   }
 
@@ -173,7 +176,8 @@ export class ProductsComponent implements OnInit {
     this.data.updateCartDetails(this.cart).subscribe({
       next : (result)=>{
         console.log(result)
-      }
+      },
+      error : console.log
     })
   }
 

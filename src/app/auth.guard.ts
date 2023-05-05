@@ -11,7 +11,7 @@ import { map, Observable, tap } from 'rxjs';
 export const authGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
 ): boolean | Observable<boolean> => {
-  // console.log(route.url[0].path)
+  console.log(route.url[0].path)
   const data = inject(DataService);
   const router = inject(Router);
 

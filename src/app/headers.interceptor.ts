@@ -15,7 +15,6 @@ export class HeadersInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = sessionStorage.getItem("token")
-    let role = sessionStorage.getItem("role")
     let id = sessionStorage.getItem("id")
 
     let keys = request.headers.keys()
@@ -24,10 +23,9 @@ export class HeadersInterceptor implements HttpInterceptor {
       obj[key] = request.headers.get(key)
     }
     
-    if(token &&  role && id){
+    if(token && id){
       let headers = new HttpHeaders({
         'authorization' : 'Bearer '+token,
-        'role' : role,
         'id' : id,
         
         ...obj

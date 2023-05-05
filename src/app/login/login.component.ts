@@ -121,7 +121,6 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("token",result.token)
         sessionStorage.setItem("email",result.email)
         sessionStorage.setItem("name",result.name)
-        sessionStorage.setItem("role",result.role)
         alert("Login successfull");
         this.router.navigateByUrl("/"+result.role)
       },

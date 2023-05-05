@@ -136,7 +136,7 @@ export class AdminProductsComponent implements OnInit {
   products: AdminProduct[] = [];
   showMoreData: boolean = false;
   loadedProducts: boolean = false;
-  editProductIndex: number = -1;
+  editProductIndex: number = -10;
   notifications: ProductNotification[] = [];
   search: string = '';
 
@@ -180,7 +180,7 @@ export class AdminProductsComponent implements OnInit {
     this.notifications = [];
     for (let product of this.totalProducts) {
       let quantity = this.calculateQuantity(product.stockFromPastDays);
-      if (quantity < 50) {
+      if (quantity < 40) {
         this.notifications.push({
           name: product.name,
           quantity,

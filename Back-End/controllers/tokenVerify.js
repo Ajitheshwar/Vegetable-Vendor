@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken")
 const verifyToken = async(req,res,next)=>{
     // console.log(req.headers)
     let tokenWithBearer = req.headers["authorization"]
-    let role = req.headers["role"]
-    // console.log(tokenWithBearer, role)
+    let role = req.originalUrl.split("/")[1]
+    // console.log(role)
     if(tokenWithBearer === undefined){
         return res.send({message : "Please Login to continue"})
     }
