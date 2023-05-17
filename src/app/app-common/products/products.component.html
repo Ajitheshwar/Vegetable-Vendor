@@ -158,9 +158,9 @@
               Rs.{{totalProducts[productInModalIndex].sellingPrice*quantity}}/-
             </div>
             <div class="d-inline-block">
-                <button id="modalMinusButton" (click)="updateQuantity(-0.25)"> - </button>
+                <button id="modalMinusButton" (click)="updateQuantity(-0.25)" [disabled]="role==='admin'"> - </button>
                 <input type="number" id="modalInput" step="0.25" [value]="quantity" disabled> 
-                <button id="modalPlusButton" (click)="updateQuantity(0.25)"> + </button> 
+                <button id="modalPlusButton" (click)="updateQuantity(0.25)" [disabled]="role==='admin'"> + </button> 
             </div>
         </div>
       </div>

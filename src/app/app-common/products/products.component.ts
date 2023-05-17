@@ -13,8 +13,12 @@ export class ProductsComponent implements OnInit {
   constructor(private data : DataService){}
 
   ngOnInit(): void {
+
+    let r = sessionStorage.getItem("email")?.split("@")[0]
+    this.role = r === 'admin' ? r : 'user'
+
     this.loadedProductsData = false
-    this.data.getCategoriesAndSubCategories().subscribe({
+    this.data.getCategoriesAndSubCategories(this.role).subscribe({
       next : (result) => {
         // console.log(result)
         this.categoriesAndSubCategories = result.data
@@ -23,12 +27,13 @@ export class ProductsComponent implements OnInit {
     this.category = 'all'
     this.getProductsOf = 1
     this.selectProductsWithCategory(1)
-
-    this.data.getCartDetails().subscribe({
-      next : (result)=>{
-        this.cart = result
-      }
-    })
+    if(this.role != 'admin'){
+      this.data.getCartDetails().subscribe({
+        next : (result)=>{
+          this.cart = result
+        }
+      })
+    }
   }
 
   loadedProductsData:boolean = false
@@ -44,6 +49,7 @@ export class ProductsComponent implements OnInit {
   category = "all"
   subCategories = ""
   search : any = ""
+  role : string = ""
 
 
   timerId :any = undefined
@@ -100,7 +106,7 @@ export class ProductsComponent implements OnInit {
   }
 
   selectProductsWithFilter(page:number){
-    this.data.getFilteredProducts(this.subCategories, page).subscribe({
+    this.data.getFilteredProducts(this.subCategories, page, this.role).subscribe({
       next  : (result)=>{
         this.totalProducts = result.data
         this.maxPages = result.total_pages
@@ -114,9 +120,9 @@ export class ProductsComponent implements OnInit {
 
   selectProductsWithCategory(page : number){
     this.getProductsOf = 1
-    this.data.getCategoryProducts(this.category,page).subscribe({
+    this.data.getCategoryProducts(this.category,page, this.role).subscribe({
       next : (result)=>{
-        // console.log(result)
+        console.log(result)
         this.totalProducts = result.data
         this.maxPages = result.total_pages
         this.page = page;
@@ -127,7 +133,7 @@ export class ProductsComponent implements OnInit {
   }
 
   selectProductWithProductName(page : number){
-    this.data.getSearchedProducts(this.search, page).subscribe({
+    this.data.getSearchedProducts(this.search, page, this.role).subscribe({
       next : (result)=>{
         this.totalProducts = result.data
         this.maxPages = result.total_pages

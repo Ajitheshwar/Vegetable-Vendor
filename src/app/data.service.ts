@@ -52,17 +52,19 @@ export class DataService {
   }
 
   //Products Page--------------------------------------------------------------------------------------------------------------
-  getCategoriesAndSubCategories(): Observable<{ data: CatandSubCat[] }> {
+  getCategoriesAndSubCategories(role : string): Observable<{ data: CatandSubCat[] }> {
     return this.http
       .get<any>(
+        "/"+role+
         userURLs.CategoriesAndSubCategories
       )
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getCategoryProducts(category: string, page: number): Observable<{ data: Product[], total_pages: number }> {
+  getCategoryProducts(category: string, page: number, role : string): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
+        "/"+role+
         userURLs.CategoryProducts +
         category +
         '/' +
@@ -71,9 +73,10 @@ export class DataService {
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getFilteredProducts(filteredProducts: string, page: number): Observable<{ data: Product[], total_pages: number }> {
+  getFilteredProducts(filteredProducts: string, page: number, role : string): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
+        "/"+role+
         userURLs.SubCategoryProducts +
         filteredProducts +
         '/' +
@@ -82,9 +85,10 @@ export class DataService {
       .pipe(catchError(this.httpErrorHandler));
   }
 
-  getSearchedProducts(search: string, page: number): Observable<{ data: Product[], total_pages: number }> {
+  getSearchedProducts(search: string, page: number, role : string): Observable<{ data: Product[], total_pages: number }> {
     return this.http
       .get<any>(
+        "/"+role+
         userURLs.SearchProducts +
         search +
         '/' +

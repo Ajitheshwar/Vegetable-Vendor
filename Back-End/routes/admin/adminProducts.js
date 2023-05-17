@@ -1,13 +1,16 @@
 const admin = require("../../controllers/admin/adminProductsc");
 const adminProductsRouter = require("express").Router();
-
-// adminProductsRouter
-//   .route("/")
-//   .get(admin.getAdminProduct)
-//   .post(admin.addAdminProduct)
-//   .put(admin.updateProduct);
+const productsController = require("../../controllers/user/products");
 
 adminProductsRouter.get("/", admin.getAdminProducts)
+
+adminProductsRouter.get("/getCategoriesAndSubCategories", productsController.getCategoriesAndSubCategories);
+
+adminProductsRouter.get("/getProducts/search/:search/:page",productsController.getProductsBySearch)
+
+adminProductsRouter.get("/getProducts/subCategories/:listOfFilters/:page",productsController.getProductsByFilter)
+
+adminProductsRouter.get("/getProducts/category/:category/:page",productsController.getProductsByCategory)
 
 adminProductsRouter.put("/",admin.updateProduct)
 

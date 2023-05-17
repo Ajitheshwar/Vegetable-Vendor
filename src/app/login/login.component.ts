@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
     // console.log(ref.value);  
     this.data.login(ref.value).subscribe({
       next: (result) => {
-        // console.log(result)
+        console.log(result)
         sessionStorage.clear()
         sessionStorage.setItem("id",result.id)
         sessionStorage.setItem("token",result.token)
